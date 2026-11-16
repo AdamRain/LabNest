@@ -1,0 +1,31 @@
+# Replace all occurrences of lab.example.org with your real domain.
+# This template assumes Caddy directly receives clients and runs on the Node.js host.
+{
+	auto_https disable_redirects
+}
+
+http://lab.example.org {
+	route {
+		@safe method GET HEAD
+		redir @safe https://lab.example.org{uri} 308
+		respond "Please reopen this page using HTTPS before submitting." 426
+	}
+}
+
+https://lab.example.org {
+	# Public domains may use Caddy's automatic HTTPS after DNS and firewall setup.
+	# For an institutional certificate, uncomment and replace these protected paths:
+	# tls /etc/caddy/certs/labnest.fullchain.pem /etc/caddy/certs/labnest.key
+
+	# Covers 5 x 5 MiB uploads plus multipart and text overhead.
+	request_body {
+		max_size 32MB
+	}
+
+	reverse_proxy 127.0.0.1:4173 {
+		header_up X-Forwarded-For {http.request.remote.host}
+		header_up X-Forwarded-Proto https
+		header_up -Forwarded
+		header_up -X-Real-IP
+	}
+}

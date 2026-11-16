@@ -1,0 +1,35 @@
+{
+  "name": "labnest",
+  "version": "0.5.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node src/start.mjs",
+    "test": "node --test",
+    "teacher": "node src/create-teacher.mjs",
+    "admin": "node src/create-admin.mjs",
+    "backup": "node src/backup.mjs",
+    "demo": "node scripts/demo.mjs",
+    "demo:seed": "node scripts/seed-demo.mjs",
+    "check:release": "node scripts/check-release.mjs",
+    "package:release": "node scripts/package-release.mjs"
+  },
+  "dependencies": {
+    "docx": "^9.15.3",
+    "nodemailer": "10.5.0",
+    "pdfkit": "^0.20.2"
+  },
+  "description": "研栖 · LabNest：实验室门户与师生科研协作平台",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AdamRain/LabNest.git"
+  },
+  "homepage": "https://github.com/AdamRain/LabNest#readme",
+  "bugs": {
+    "url": "https://github.com/AdamRain/LabNest/issues"
+  }
+}

@@ -1,0 +1,27 @@
+[Unit]
+Description=LabNest research team platform
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=labnest
+Group=labnest
+WorkingDirectory=/srv/labnest/app
+Environment=NODE_ENV=production
+Environment=LAB_ENV_FILE=/etc/labnest/app.env
+EnvironmentFile=/etc/labnest/app.env
+# Replace /usr/bin/node if Node.js 24+ is installed at another service-accessible path.
+ExecStart=/usr/bin/node /srv/labnest/app/src/start.mjs
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/srv/labnest/data
+
+[Install]
+WantedBy=multi-user.target

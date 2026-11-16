@@ -1,0 +1,567 @@
+{
+  "formatVersion": 1,
+  "project": "LabNest",
+  "version": "0.5.0",
+  "files": {
+    ".env.example": {
+      "bytes": 1553,
+      "sha256": "acd46c2bbd77196586af884c5c7316a1c074ab80657cc337c82c7647b791cd3d"
+    },
+    ".gitattributes": {
+      "bytes": 87,
+      "sha256": "bd8883256be5bee2a76524b1470a2032901f500a069e061d0ed4803137af194c"
+    },
+    ".github/workflows/ci.yml": {
+      "bytes": 1715,
+      "sha256": "0bc7cb5cfd72d3d6f0ce79c75520a929e818dc9315fa2cbc35055290eaab53f5"
+    },
+    ".gitignore": {
+      "bytes": 190,
+      "sha256": "0586da4ffece3229fc4a3b4434ed2ba3d6f64397248d1147e995e649ded40016"
+    },
+    ".nvmrc": {
+      "bytes": 3,
+      "sha256": "68ca3fba3b7e864770cb61aeb306d4bd4354b68ab4dd38450860c5d823e42a53"
+    },
+    "CONTRIBUTING.md": {
+      "bytes": 923,
+      "sha256": "6a98c1ec4a6f790ad5cc4e4ec2c9847e554bdb3532b356a75910d5add3693ea8"
+    },
+    "DEMO.md": {
+      "bytes": 6032,
+      "sha256": "6d9060416329efc22a17139aafbdba40af6b1875c30387db1c0392b61b12b3b2"
+    },
+    "LICENSE": {
+      "bytes": 1060,
+      "sha256": "ae976d99c625f19a203197cf6d36e63fd0487dcba3834f19408a61498fe25141"
+    },
+    "README.md": {
+      "bytes": 9985,
+      "sha256": "ccff712a07882eb4e5ee3ca92d45eccfab38517a7477999c03af378e6ea9d6ee"
+    },
+    "SECURITY.md": {
+      "bytes": 1947,
+      "sha256": "c56bea680f5dffa4ff376b99a8e322f6fc5c6bc8e6c6c82939ead6da2a5bdedd"
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "bytes": 1897,
+      "sha256": "7066f731fb732be6b716ffc66d34cc7d8f2bb541c16ab43f18f48ee05ee3d192"
+    },
+    "deploy/linux/Caddyfile.example": {
+      "bytes": 907,
+      "sha256": "8beb51f10cac96ac198e0ef6291b90deaa88e53b6c6fc22f5a9e25ee8a696ffc"
+    },
+    "deploy/linux/README.md": {
+      "bytes": 1041,
+      "sha256": "3bc03a6a2f743d68d002774e20c1da96d32a4b1cb803915108fe7e93bb078c17"
+    },
+    "deploy/linux/app.env.example": {
+      "bytes": 730,
+      "sha256": "31552603426133259e470e0fe1dd76440347f0da0b41b0c4ce31e9862acaa0e0"
+    },
+    "deploy/linux/labnest.service": {
+      "bytes": 655,
+      "sha256": "058501c0667597093c9a7e12994f45e607a6ef5188c9c6ac469e539825ec0b92"
+    },
+    "docs/BRANDING.md": {
+      "bytes": 1079,
+      "sha256": "0af188841ab5114ce6d3218d6e16f12489bbe3b41710f21b8c5ca44511bebc3d"
+    },
+    "docs/DEPLOYMENT.md": {
+      "bytes": 14716,
+      "sha256": "b0760571e3e9d0e32c6d21fb7b507a7e222ceefd9621a8956d099bdc8394d25d"
+    },
+    "docs/RELEASE_CHECKS.md": {
+      "bytes": 1504,
+      "sha256": "3e6e1f4c6189b366e6630991e8d8389db51cd86a1b9e0298c0e292dfaafe3bb3"
+    },
+    "docs/RELEASE_NOTES.md": {
+      "bytes": 1591,
+      "sha256": "c41a131b0d67c86200c7773f55237e7d747b17296421619104dd804a9efcff7d"
+    },
+    "docs/USER_GUIDE.md": {
+      "bytes": 27861,
+      "sha256": "3c37912e362a603b73ce7dd609a8475ab3563e357c6d01be8957b860ca7fbf25"
+    },
+    "docs/screenshots/admin-users.png": {
+      "bytes": 410735,
+      "sha256": "1a1bc9fe63f3b093176f35cafeb7047ffec419e27b992c056b14e3e70971d977"
+    },
+    "docs/screenshots/appearance-dark.png": {
+      "bytes": 764856,
+      "sha256": "4aaa594ff5988c20a630c901f5ece6fd02a2d603bcb169b9d75c8a5757851785"
+    },
+    "docs/screenshots/calendar.png": {
+      "bytes": 434026,
+      "sha256": "59e7bcb4a79626e9c2c1a6268f7c05c3d952d6747c1d4e58bda309f593a7055f"
+    },
+    "docs/screenshots/login.png": {
+      "bytes": 517648,
+      "sha256": "4c0952bd57e37f9a152efacf5b155dd97e2bd212c33eb38108420f2f8f0a610d"
+    },
+    "docs/screenshots/personal-homepage.png": {
+      "bytes": 670013,
+      "sha256": "35fc9b93aab2fab52f0c8eaf4e1fa648d18d6f14ded54371938be88891977d0a"
+    },
+    "docs/screenshots/portal.png": {
+      "bytes": 892392,
+      "sha256": "c6f60491815e625faf4de8efdc526cd276971342af55bf68f6ae05ca44bf6c6b"
+    },
+    "docs/screenshots/student-dashboard.png": {
+      "bytes": 655159,
+      "sha256": "277adab4b09becc60cedf584a50fc4f2ff53cdf27ea4141cdfd53689420b0c37"
+    },
+    "docs/screenshots/student-profile.png": {
+      "bytes": 615981,
+      "sha256": "941537e97f088b67e84276883b7ab68dcc8bae0bc3e1f9be66dd36ec9c484efd"
+    },
+    "docs/screenshots/teacher-dashboard.png": {
+      "bytes": 618859,
+      "sha256": "c3bdacb7583489b71271cfc99adf9772985eb6f8641f691863f034e02930f5d3"
+    },
+    "docs/screenshots/weekly-editor.png": {
+      "bytes": 753314,
+      "sha256": "438800e051d7faddf454368279ef137b91266ebd3947021b50af0ddde7ee39b3"
+    },
+    "fixtures/demo-people.json": {
+      "bytes": 1214,
+      "sha256": "f30e5fd0811394bf036fa686c9d623596ae50120ccdf5b306947ae09abaa7dea"
+    },
+    "package-lock.json": {
+      "bytes": 9447,
+      "sha256": "5115ceeb655c219e38256ea1f50bc8c68ae6957320291cf6220a3518f6831603"
+    },
+    "package.json": {
+      "bytes": 959,
+      "sha256": "f6c0830ac20cb1ab8e3cf5400755acf5228b2e6ebacbce5b9b98add64e215bd6"
+    },
+    "public/accent.css": {
+      "bytes": 10728,
+      "sha256": "5459d97754d8504747b33d140cc93d2bd9a80d690a66d497448c27ff99d8ed2f"
+    },
+    "public/accounts.css": {
+      "bytes": 6541,
+      "sha256": "dec34c3764e8908044b758e55b32686590a24630430afc77ef1aa7620982aaaf"
+    },
+    "public/admin.css": {
+      "bytes": 2063,
+      "sha256": "bf0257cb805e4e84f7233e5011ed9884709ae43308b4db1dbce97b9319e0a02d"
+    },
+    "public/app.css": {
+      "bytes": 14969,
+      "sha256": "e242eda0fb736b33d8a95b39095d7bf3d8c7790e3accca763d9933cd2c22407a"
+    },
+    "public/appearance-controls.css": {
+      "bytes": 7185,
+      "sha256": "35b228a056588359acb3bd127549d78e2f97982774569214b80575093c1dc53e"
+    },
+    "public/calendar-preview.css": {
+      "bytes": 7821,
+      "sha256": "7f26c1cf31e8dc1a0af748584223a96648f3d0d3f883c1907b39212b342534fb"
+    },
+    "public/calendar-preview.js": {
+      "bytes": 6548,
+      "sha256": "c7d6b9d42d3bf1e2ebd1b93b9c9d2e07b1073c48009f758fa2e13be56dc85441"
+    },
+    "public/glass.css": {
+      "bytes": 7918,
+      "sha256": "8ee8fea5761b23bf5fd25d6b9d87131ae8019a277af6e9cf3feca11fb6d7340e"
+    },
+    "public/home-desk.css": {
+      "bytes": 11486,
+      "sha256": "8c638bbd08359e4d6b7bc97daab210a02dde5ac58f8d9ed12ee001ce3ec31f67"
+    },
+    "public/lab-logo.png": {
+      "bytes": 717584,
+      "sha256": "de7b0bc7c2a8e37cf848e0e5837b8a97147375e9b117b83bf1c26dfafb512c12"
+    },
+    "public/login-entry.css": {
+      "bytes": 11081,
+      "sha256": "7594bb70906e5b8e2a23d462b9c45255afffcb82d8dc313a42a79e547a3c6787"
+    },
+    "public/login.js": {
+      "bytes": 10633,
+      "sha256": "70f28262df59dfe5fe74aebb6f7f0962e4c99dc659ba1337285b7ecc1dce6eab"
+    },
+    "public/portal-gallery.js": {
+      "bytes": 1096,
+      "sha256": "e7045f5e0bfaff41b9d2c8403faeca53be35a2251fa4bf1c099d7a827da8c5d5"
+    },
+    "public/portal-navigation.js": {
+      "bytes": 284,
+      "sha256": "573405031e0f7625f32dc0f67097cd0a01d8807ee3ee8dcc881b7682a300a678"
+    },
+    "public/portal.css": {
+      "bytes": 18582,
+      "sha256": "0dfa9b7e7f1111ff2a45f2c5dc5e79182d9aade7f1be312fe4dc56232cbc9118"
+    },
+    "public/student-dynamics.js": {
+      "bytes": 4091,
+      "sha256": "0a82e55af3079a8edb9811e36fb012dcf401d6549a0e25dcb732602d33c9537e"
+    },
+    "public/student-site.css": {
+      "bytes": 10695,
+      "sha256": "c2ac0577269c68934695547459172b029317014a22c6777cf8a8b7835df2b582"
+    },
+    "public/student-tour.css": {
+      "bytes": 3115,
+      "sha256": "df9e6b6548d63a96711045afcd69b7971a9b809f13565ce2653c641f0667d58a"
+    },
+    "public/student-tour.js": {
+      "bytes": 10185,
+      "sha256": "05f2bec1666a2b7d9762b6d282ddeac91d4f737124fefa387aed117bc11e0a6a"
+    },
+    "public/team-cover.svg": {
+      "bytes": 3058,
+      "sha256": "f382acaa6d3ecf7b9b452708dde60b18f8a7d33b15d6881234c963b9e07b1ff8"
+    },
+    "public/team-research-data.svg": {
+      "bytes": 4912,
+      "sha256": "2dee1286eab4098f59963af2c001c33f2134da66a58c0102597499719c747a8d"
+    },
+    "public/team-research-network.svg": {
+      "bytes": 3906,
+      "sha256": "a71a334a264916860b655e6c624a4f33ce122bd278ce0857b4598cac71905e64"
+    },
+    "public/team-research-services.svg": {
+      "bytes": 3471,
+      "sha256": "c77b39bb13bf546d56ce95510d32c10094c56befd93c5683823bc8c684ff6164"
+    },
+    "public/theme.css": {
+      "bytes": 15748,
+      "sha256": "63c1e3fecdce967061ccad5c25a6916408507fe219699745de15bd776dd3f610"
+    },
+    "public/theme.js": {
+      "bytes": 4632,
+      "sha256": "d88909c9f3c62ff349d4d09c00ac7dd408a2ef9da70ec29bc0423489128862eb"
+    },
+    "public/topics.css": {
+      "bytes": 6622,
+      "sha256": "65c511722e796842d2a8698562542dfb49120ac0c4791539edacdd1a61295aaf"
+    },
+    "public/vendor/preline-collapse-5.0.0.mjs": {
+      "bytes": 5515,
+      "sha256": "1712ad417e9c5c04fc074a1f5e49e06bfa2c1376e4330f86c312bc0e9ea4ec01"
+    },
+    "public/vendor/preline-collapse.LICENSE": {
+      "bytes": 3325,
+      "sha256": "ac794b9a0bbcb6f789019397db1af6fb062b131816c6d8b662381941b870fb07"
+    },
+    "public/weekly-editor.js": {
+      "bytes": 11299,
+      "sha256": "53f3a0c9d769525810216f781e313afd6887a70f1e0df36e62aa00fff0f22fd7"
+    },
+    "public/weekly.css": {
+      "bytes": 16043,
+      "sha256": "5661e95c7c75a19ea95cfb56414cdfc7ef519dffd6217727dd14661c40c5b58e"
+    },
+    "public/workspace.css": {
+      "bytes": 13356,
+      "sha256": "d1cc11dc09b0055ff6478472a7b0fb09060a1baebbc032fc7fac50f983962764"
+    },
+    "scripts/check-release.mjs": {
+      "bytes": 6471,
+      "sha256": "7f47e1b0c760f2dee4c50ddebc7bb80ecc5106031be000d4406ba733b878aa37"
+    },
+    "scripts/demo.mjs": {
+      "bytes": 3070,
+      "sha256": "ffea73867c0f0037ef62c776c189d3e55fb30d4bbadc0f9e24ca1f63baa60c8f"
+    },
+    "scripts/package-release.mjs": {
+      "bytes": 9359,
+      "sha256": "199411a459ec8913d56cc2c8cfb16443b17a98697e08c55e73318aa3d16355d7"
+    },
+    "scripts/seed-demo.mjs": {
+      "bytes": 26950,
+      "sha256": "8be86ac9c85b7b86f45d6bc9f67eedaa3d0dd831c3799b3fd38b1f632bda2988"
+    },
+    "src/accounts.mjs": {
+      "bytes": 33829,
+      "sha256": "ca0d203ac20c7be3e92052b19384cc64df70dba62c8138cf4f47e103bee74a31"
+    },
+    "src/admin.mjs": {
+      "bytes": 11198,
+      "sha256": "8ca1f2443d98121b898a0f5e5986c3f2555702d8c323bd63776fa738689ed5b4"
+    },
+    "src/auth-abuse.mjs": {
+      "bytes": 5503,
+      "sha256": "0cd407c1e968acde28262f2c7b7cc371c797f3b8566628183803f7d63435aa72"
+    },
+    "src/backup.mjs": {
+      "bytes": 925,
+      "sha256": "a1b45980f1d2041f77b91120c3ac9e3cb8ae5261b3c27bb6289fc6b15ba70c5c"
+    },
+    "src/calendar-subscriptions.mjs": {
+      "bytes": 4633,
+      "sha256": "3e230b768dc7310a26b9a02234d74e8a5f73048a74078ed01c2daadbc1d3c2b5"
+    },
+    "src/calendar.mjs": {
+      "bytes": 31573,
+      "sha256": "b6e2531a3f55c6a5292ccaa4b2b1d7f5229188add6695abbbd779278352aed8b"
+    },
+    "src/conference-feed.mjs": {
+      "bytes": 9459,
+      "sha256": "4bd794c99f49ff09733e6b7b4150e4b04daad36d9626d63a1bbcc747b311fe55"
+    },
+    "src/create-admin.mjs": {
+      "bytes": 782,
+      "sha256": "a5bd8be1d908c1cc6d2138d9da4829949fe806ee684aa9fe4753d80bd472ee2a"
+    },
+    "src/create-teacher.mjs": {
+      "bytes": 774,
+      "sha256": "fe3ebcec4189208ba2fbe80076509ac12bf950edcbf53e70e15bf8d5be895171"
+    },
+    "src/database.mjs": {
+      "bytes": 1230,
+      "sha256": "86450136bc289fdb40d0c31ae97023ddef480f8801595d0423d2f0cc739b09d3"
+    },
+    "src/fonts/Fandol-COPYING.txt": {
+      "bytes": 35737,
+      "sha256": "853b586f0d520493390e571431afaf36a5fbb27dcfd239338a7ee9b0505cb004"
+    },
+    "src/fonts/Fandol-README.txt": {
+      "bytes": 645,
+      "sha256": "32537e063f4c7d4aebf016d5c8279cbce13f34fc8970f24b2578a3c04d0f8ca6"
+    },
+    "src/fonts/FandolHei-Regular.otf": {
+      "bytes": 5808908,
+      "sha256": "4afa97aa8751e0118617df88272b58d43691b5cffb7ea024c4580496e9f34d28"
+    },
+    "src/fonts/README.md": {
+      "bytes": 868,
+      "sha256": "31be449bc564398d778aed114032c12d27fff9fe32d0bb27fcc69a5d3005e4df"
+    },
+    "src/mail-settings.mjs": {
+      "bytes": 4448,
+      "sha256": "cd82e15bd2b09ae14021ad9cf6ad10b308b468264dead0a29843168361df532d"
+    },
+    "src/management-views.mjs": {
+      "bytes": 17830,
+      "sha256": "67372e7622fea1f409cc4b8be6c0b76b3c005abb7555f16456659bfa59cab92e"
+    },
+    "src/management.mjs": {
+      "bytes": 20977,
+      "sha256": "465772fd7f2f50c832b3f98c56c253be6bdf687f35c60315e5cf896b1451be29"
+    },
+    "src/news.mjs": {
+      "bytes": 3647,
+      "sha256": "4b74673741a9be3e9884be8184bb7ded5cc7f50fcea6a2c18536eb058489ac17"
+    },
+    "src/photo-validation.mjs": {
+      "bytes": 7346,
+      "sha256": "c3993d368eb18d477311abba5c3260b49ffd86a332f0c5af707522369ca07033"
+    },
+    "src/photos.mjs": {
+      "bytes": 1743,
+      "sha256": "b820aeef01735d9ab533a15a07d3c0df16e242d1e444af517ff3a8d34b8feb4d"
+    },
+    "src/portal-views.mjs": {
+      "bytes": 16686,
+      "sha256": "2ea5c8297954fb73aa833e0d09db8ca486978e39b69aa246921d6c6368a046ae"
+    },
+    "src/portal.mjs": {
+      "bytes": 13075,
+      "sha256": "8cade978a57ea8c9266776f63903fabb634bd086de06cabf7ff3e5302e533de3"
+    },
+    "src/reset-mailer.mjs": {
+      "bytes": 5321,
+      "sha256": "cbab506aad836a58fdb35a8a446c9b2ee3fa3bdec9293688a4ec963fb1ed3c34"
+    },
+    "src/resume-export.mjs": {
+      "bytes": 9100,
+      "sha256": "a7d198d51b3d1150b824ccbdfbec5894d84523cc76f5630cbc337a5d92ad048b"
+    },
+    "src/rich-text.mjs": {
+      "bytes": 5412,
+      "sha256": "f969979bd159b5c8677ee1d18aa0798b7ec488af0633c9a8bbafbdb3ae2b9c75"
+    },
+    "src/server.mjs": {
+      "bytes": 31991,
+      "sha256": "00d548333dfb6f5ebf8be32156a094b4f6bf91bc40607f83cddd2b0b97f14d74"
+    },
+    "src/site-branding.mjs": {
+      "bytes": 2075,
+      "sha256": "9583357b9983d17a671101264d184226db4853890883853873d16c4f0d6aa6bd"
+    },
+    "src/start.mjs": {
+      "bytes": 2645,
+      "sha256": "12bae0f9879a065fac18cf28eb02c059de8ad67d70aa802e971e30f2bc812e94"
+    },
+    "src/student-desk.mjs": {
+      "bytes": 6472,
+      "sha256": "c74ae1d8410e39616f854174f03aa5ea15bd53e035dd0c2de374d672da9a0504"
+    },
+    "src/student-site-views.mjs": {
+      "bytes": 10116,
+      "sha256": "bd872df6b3cb60aa102bfc7ac16a3fb3af6f5f44a2b882320737acc0433a286a"
+    },
+    "src/student-site.mjs": {
+      "bytes": 7483,
+      "sha256": "0080216d5cfcd19359d5b9274706a35edaab21461844147d885c626b8284644c"
+    },
+    "src/teacher-desk.mjs": {
+      "bytes": 11598,
+      "sha256": "9a491d95242525ab29a1ec1315e8b1e852a73414f45b8114db70687103475aa9"
+    },
+    "src/theme-ui.mjs": {
+      "bytes": 2628,
+      "sha256": "d09f823b4c9156e88b0c49111982c5be709d0bea2fc1a32c33bc3775dee13bf8"
+    },
+    "src/topics-views.mjs": {
+      "bytes": 18072,
+      "sha256": "cd682f269369abb911b76d025515aa2c29f49e2b151489514df899f8b26a9d82"
+    },
+    "src/topics.mjs": {
+      "bytes": 34927,
+      "sha256": "9bd7ad030979d48ce07a186b3d113de19e3c191c5b83ea8fbb7e9aad43cffea3"
+    },
+    "src/transport-config.mjs": {
+      "bytes": 3209,
+      "sha256": "f35c8f83e5650019832ec73d70da42c9b9c7d548c5318558d65c525f5f4cf26c"
+    },
+    "src/transport-security.mjs": {
+      "bytes": 5049,
+      "sha256": "0f66ad830e4bf7d30665b335b1c1f2ea53013fe93cdb5dc38256327f87c87c83"
+    },
+    "src/views.mjs": {
+      "bytes": 41013,
+      "sha256": "12184deaf474d92879a5d225a18cab9456b2499c75ccc87cf7a3ba5b2347334e"
+    },
+    "src/weekly-attachments.mjs": {
+      "bytes": 16325,
+      "sha256": "7482ca18c97ab2e6f4fbd5d2b3217bc0b637fe7dc764d50d256c9eaca78c4e31"
+    },
+    "src/weekly-views.mjs": {
+      "bytes": 25472,
+      "sha256": "8858ebfa95868206676628e02878bd37d973e752d83af5eea96cf40a36c969e0"
+    },
+    "src/weekly.mjs": {
+      "bytes": 24726,
+      "sha256": "2e0b4736394e7bb0391d6236b3af1f0ae79e0eb59fdece2d069451b44ac6e62a"
+    },
+    "src/workspace-ui.mjs": {
+      "bytes": 7281,
+      "sha256": "dd2e1798662a282d8837c280092eca965056262bae4213d455a364eeb3207b07"
+    },
+    "test/admin-accounts.test.mjs": {
+      "bytes": 18971,
+      "sha256": "8e34065792e1e423b607a5ce49c5a34f348e13097357f688c26762f07c9d7284"
+    },
+    "test/auth-abuse.test.mjs": {
+      "bytes": 9828,
+      "sha256": "cc52a2955823d1cc797b907993d52fdcf7c001a5647935021e11f58406cfbaf1"
+    },
+    "test/calendar-subscriptions-http.test.mjs": {
+      "bytes": 14330,
+      "sha256": "898a4e9da0c9b69e9bdf62f748b4ecd548ac9939e2a67ebfb084efea81f1abfd"
+    },
+    "test/calendar-subscriptions.test.mjs": {
+      "bytes": 6751,
+      "sha256": "20ff91d02e1a6179e9cc381bc4c91761972f04196f2ab8c1de05c962a6978978"
+    },
+    "test/campus-http.test.mjs": {
+      "bytes": 7950,
+      "sha256": "e6b947878db779a764658113487f53aafae97e1889da93a62bcd285ebb41ca04"
+    },
+    "test/conference-feed.test.mjs": {
+      "bytes": 9497,
+      "sha256": "3d08ce5e761a3431d76e4b18032d29089ba101396770c5f738e95357f1ae04fd"
+    },
+    "test/demo-seed.test.mjs": {
+      "bytes": 6383,
+      "sha256": "b8a4e4a7eec0088b03f4c037eabf4331b1176192b172c30d2ee9e5db3ffd6631"
+    },
+    "test/package-release.test.mjs": {
+      "bytes": 6540,
+      "sha256": "afa61e860754197a55dcdbe99584cd5e3eecc47d3a6fbbbc1e0186a211338cbf"
+    },
+    "test/password-reset-accounts.test.mjs": {
+      "bytes": 6711,
+      "sha256": "b5cff56aae10ec46bb696dceafd2141ccbffbb2955c256e4a7198c21b59d7fb8"
+    },
+    "test/password-reset-http.test.mjs": {
+      "bytes": 11464,
+      "sha256": "6b5ef307ab8b2a1dbf5ba076ca8d75ac312ab7c85ed319efab4a16b42e7ef2b0"
+    },
+    "test/photo-validation.test.mjs": {
+      "bytes": 7987,
+      "sha256": "235b8e654abc55f9874b493bef978a783dd65d024f6768fcd61b10ae5464fff3"
+    },
+    "test/portal-footer.test.mjs": {
+      "bytes": 2916,
+      "sha256": "081f3d1a782ba7b33a79044855f1e0fbf1cb6e86844340d678f64a283a8cb5d6"
+    },
+    "test/portal-teacher-isolation.test.mjs": {
+      "bytes": 7094,
+      "sha256": "5d39cfe222ab8f933936c48c155a8313486d182673b301a38621d30153a8a016"
+    },
+    "test/profile-rereview.test.mjs": {
+      "bytes": 15214,
+      "sha256": "9a8076664eed6eb287b25abdd7879ed326fdc5765a46b93486372c1491bc0a29"
+    },
+    "test/release-hygiene.test.mjs": {
+      "bytes": 4480,
+      "sha256": "11ce96d548c5da5016a3bbc83a9661c3508992ea244f63deeab94f4431126aca"
+    },
+    "test/reset-mailer.test.mjs": {
+      "bytes": 9615,
+      "sha256": "e50da9658fbf1fe0a5e48e00aff8b598eafc5ab30ab155281648a3b5728fb736"
+    },
+    "test/rich-weekly.test.mjs": {
+      "bytes": 12447,
+      "sha256": "73b5672c2ec0d54fc5408239b6396cf7c3229a1bfe357d13b2c1b7944d636086"
+    },
+    "test/site-branding.test.mjs": {
+      "bytes": 7249,
+      "sha256": "240ed42db8bfecaba6ec35d4e9d8fcc16174ccb76a70e5cea3e37ee901e4278b"
+    },
+    "test/social-dynamics.test.mjs": {
+      "bytes": 11450,
+      "sha256": "9cfed2494a3eb2d9ed5b12d4f179204900c556ed4773da1e59c8b952f6b707ec"
+    },
+    "test/student-approval-access.test.mjs": {
+      "bytes": 13044,
+      "sha256": "87bb309dd09a521796cb5d4ec8f013ea30e2895fcc83da9cfbd8fb5904d9080f"
+    },
+    "test/student-publications.test.mjs": {
+      "bytes": 10131,
+      "sha256": "dd40724b2dec8f1adae7a82b95fabeaf3deb723318afd2e6c4b69987932587a7"
+    },
+    "test/student-registration.test.mjs": {
+      "bytes": 9158,
+      "sha256": "8b6950b9f1cc8fe607ea98f39391b3385b9e1ab4629020c2cc126e1442a280c3"
+    },
+    "test/student-site.test.mjs": {
+      "bytes": 15685,
+      "sha256": "60644d8b3826227d237659871639dae669e8db19a188a65b0b89e9842300998a"
+    },
+    "test/teacher-dynamics.test.mjs": {
+      "bytes": 15317,
+      "sha256": "a66cee83d23f23285f57e5503ec6280dfb2f95ee682a9e67b217c6db1b8979ce"
+    },
+    "test/teacher-isolation.test.mjs": {
+      "bytes": 12697,
+      "sha256": "cf9ea9b30132b0472036bf7bf39c5580aba9b62945e03b3a7a20c822e22052ac"
+    },
+    "test/teacher-student-order.test.mjs": {
+      "bytes": 3975,
+      "sha256": "ebdf63b6b5d7d67815887afb8e304a3fa7f81697f89ae93b247191a6a219e521"
+    },
+    "test/theme.test.mjs": {
+      "bytes": 10194,
+      "sha256": "0c8305ca060942a25da92ce9f0a26c65ca1919876f89513cdc0d0485232ba313"
+    },
+    "test/transport-security.test.mjs": {
+      "bytes": 11810,
+      "sha256": "b94bba4f4d7adbf855562b1e207a091b0016a835052501f6858e0a158cb5ae07"
+    },
+    "test/weekly-attachments.test.mjs": {
+      "bytes": 17662,
+      "sha256": "13a654a3307af2edb1b54bc1d5fbff4a08392b21f1ff29fd7f517268377d543b"
+    },
+    "test/weekly-editing.test.mjs": {
+      "bytes": 12931,
+      "sha256": "8ebe26875a685e7d378eb86d277fa0b457b8949d8f7f080d9e96fa5f50d0d772"
+    }
+  }
+}

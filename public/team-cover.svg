@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 315" fill="none" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="grid" width="12" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r=".65" fill="#a4e8cf" opacity=".29"/>
+    </pattern>
+    <mask id="center">
+      <path fill="#fff" d="M0 0h560v315H0z"/>
+      <rect x="185" y="73" width="190" height="169" rx="39" fill="#000"/>
+    </mask>
+    <g id="terminal">
+      <circle r="5.6" fill="#113b34" stroke="#8cdfc1" stroke-width="1.3"/>
+      <circle r="1.8" fill="#c5f4df"/>
+    </g>
+    <g id="junction">
+      <circle r="2.4" fill="#86dab8"/>
+    </g>
+  </defs>
+
+  <!-- An open lattice leaves room for the real emblem in the middle. -->
+  <path fill="url(#grid)" mask="url(#center)" d="M22 18h516v279H22z"/>
+  <g stroke="#85c7b0" stroke-width=".85" opacity=".38">
+    <path d="M20 44V20h24m472 0h24v24m0 227v24h-24M44 295H20v-24"/>
+    <path d="M46 47h69l45 41m354 177h-69l-45-41M69 267h59l38-39m325-180h-59l-38 39"/>
+    <path d="M225 75l19-20h72l19 20m-110 165l19 20h72l19-20"/>
+    <path d="M260 34h40m-40 247h40"/>
+  </g>
+  <g stroke="#7bbfa9" stroke-width="1.1" opacity=".68">
+    <path d="M48 87h70l20 20h48m-128-7h52l20 20h49m-131-7h52l20 20h50"/>
+    <path d="M48 179h66l25-24h35m-116 37h67l24-24h24m-125 37h87l24-24h16"/>
+    <path d="M512 228h-70l-20-20h-48m128 7h-52l-20-20h-49m131 7h-52l-20-20h-50"/>
+    <path d="M512 136h-66l-25 24h-35m116-37h-67l-24 24h-24m125-37h-87l-24 24h-16"/>
+  </g>
+  <g stroke="#9de7cb" stroke-width="1.5">
+    <path d="M66 59h55l29 29h48M66 232h65l35-35h21"/>
+    <path d="M494 256h-55l-29-29h-48m132-144h-65l-35 35h-21"/>
+    <path d="M115 47l36 36h49m245 185l-36-36h-49" opacity=".38"/>
+    <path d="M22 146h27l17 17h42l20-20h44m366 26h-27l-17-17h-42l-20 20h-44" opacity=".65"/>
+  </g>
+  <g stroke="#7cae9e" stroke-width=".8" opacity=".6">
+    <rect x="63" y="138" width="49" height="25" rx="3"/>
+    <rect x="448" y="152" width="49" height="25" rx="3"/>
+    <path d="M70 142v17m7-17v17m7-17v17m7-17v17m7-17v17m7-17v17m350-3v17m7-17v17m7-17v17m7-17v17m7-17v17m7-17v17"/>
+  </g>
+  <g>
+    <use href="#terminal" x="48" y="87"/><use href="#junction" x="58" y="100"/><use href="#junction" x="48" y="113"/>
+    <use href="#terminal" x="48" y="179"/><use href="#junction" x="58" y="192"/><use href="#junction" x="48" y="205"/>
+    <use href="#terminal" x="512" y="228"/><use href="#junction" x="502" y="215"/><use href="#junction" x="512" y="202"/>
+    <use href="#terminal" x="512" y="136"/><use href="#junction" x="502" y="123"/><use href="#junction" x="512" y="110"/>
+    <use href="#terminal" x="66" y="59"/><use href="#terminal" x="66" y="232"/>
+    <use href="#terminal" x="494" y="256"/><use href="#terminal" x="494" y="83"/>
+    <use href="#junction" x="115" y="47"/><use href="#junction" x="445" y="268"/>
+  </g>
+  <g stroke="#e1c491" stroke-width="1.25" opacity=".9">
+    <path d="M151 56v7m-3.5-3.5h7m254 192v7m-3.5-3.5h7"/>
+    <circle cx="195" cy="44" r="2.8"/><circle cx="365" cy="271" r="2.8"/>
+  </g>
+</svg>

@@ -1,0 +1,114 @@
+#student-tour[open] {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  border: 0;
+  color: var(--ink, #152f2a);
+  background: transparent;
+  --tour-dim: rgb(10 29 29 / 67%);
+  --tour-paper: #f8fcfa;
+}
+
+#student-tour::backdrop { background: transparent; }
+#student-tour:not([data-tour-highlight])::backdrop { background: rgb(10 29 29 / 67%); }
+
+#student-tour [data-tour-spotlight] {
+  position: absolute;
+  inset: var(--tour-spot-top) auto auto var(--tour-spot-left);
+  width: var(--tour-spot-width);
+  height: var(--tour-spot-height);
+  border: 2px solid #befce8;
+  border-radius: 13px;
+  box-shadow: 0 0 0 100vmax var(--tour-dim), 0 0 17px 1px #91f7d8a0;
+  pointer-events: none;
+}
+
+.student-tour-card {
+  position: absolute;
+  z-index: 1;
+  left: var(--tour-card-left, 12px);
+  top: var(--tour-card-top, 12px);
+  width: var(--tour-card-width, min(352px, calc(100vw - 24px)));
+  max-height: var(--tour-card-height, calc(100dvh - 24px));
+  padding: 18px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #cee3d9;
+  border-radius: 18px;
+  background: var(--tour-paper);
+  box-shadow: 0 18px 46px rgb(4 28 24 / 32%), inset 0 1px #fff;
+}
+
+#student-tour:not([data-tour-side]) .student-tour-card { visibility: hidden; }
+
+#student-tour:is([data-tour-side="left"], [data-tour-side="right"], [data-tour-side="above"], [data-tour-side="below"])::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  left: var(--tour-arrow-x);
+  top: var(--tour-arrow-y);
+  width: 20px;
+  height: 12px;
+  background: var(--tour-paper);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  transform: translate(-50%, -50%) rotate(var(--tour-arrow-angle, 0deg));
+  pointer-events: none;
+}
+#student-tour[data-tour-side="above"] { --tour-arrow-angle: 180deg; }
+#student-tour[data-tour-side="right"] { --tour-arrow-angle: -90deg; }
+#student-tour[data-tour-side="left"] { --tour-arrow-angle: 90deg; }
+
+.student-tour-card [data-tour-count] {
+  margin: 0 0 6px;
+  color: #17654f;
+  font-size: .85rem;
+  font-weight: 690;
+}
+
+.student-tour-card #student-tour-title {
+  margin: 0 0 7px;
+  font-size: 1.18rem;
+  line-height: 1.35;
+  letter-spacing: -.015em;
+}
+
+.student-tour-card [data-tour-description] {
+  margin: 0;
+  color: #455e55;
+  line-height: 1.55;
+}
+
+.student-tour-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 15px;
+}
+
+.student-tour-actions form { margin: 0 auto 0 0; }
+.student-tour-actions button { min-height: 44px; font-size: .88rem; }
+.student-tour-actions button[hidden] { display: none; }
+.student-tour-card :is(button, #student-tour-title):focus-visible {
+  outline: 2px solid #17654f;
+  outline-offset: 2px;
+}
+
+@media (max-width: 400px) {
+  .student-tour-card { padding: 15px; }
+  .student-tour-actions button { padding-inline: 10px; }
+}
+
+@media (forced-colors: active) {
+  #student-tour [data-tour-spotlight] { border-color: Highlight; }
+  #student-tour::after { display: none; }
+}

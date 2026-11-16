@@ -1,0 +1,10 @@
+[
+  {"name":"林星遥","email":"student@demo.example.test","level":"graduate","studentStatus":"active","teacher":0,"secondary":1,"area":"多模态检索与评测"},
+  {"name":"周望舒","email":"zhou@demo.example.test","level":"graduate","studentStatus":"active","teacher":1,"secondary":0,"area":"可信机器学习"},
+  {"name":"陈知微","email":"chen@demo.example.test","level":"undergraduate","studentStatus":"active","teacher":0,"area":"知识图谱与信息服务"},
+  {"name":"宋予安","email":"song@demo.example.test","level":"graduate","studentStatus":"active","teacher":1,"area":"网络数据分析"},
+  {"name":"许清和","email":"xu@demo.example.test","level":"graduate","studentStatus":"active","teacher":0,"area":"交互式信息可视化"},
+  {"name":"叶怀川","email":"alumni@demo.example.test","level":"graduate","studentStatus":"graduated","teacher":0,"area":"信息检索"},
+  {"name":"陆闻溪","email":"pending@demo.example.test","level":"undergraduate","studentStatus":"active","teacher":0,"pending":true,"area":"自然语言处理"},
+  {"name":"顾书宁","email":"admitted@demo.example.test","level":"graduate","studentStatus":"admitted","teacher":0,"area":"智能信息服务"}
+]
