@@ -1,3 +1,4 @@
+import { h, t } from './i18n.mjs';
 import { resultKinds } from './management-views.mjs';
 import { openSiteBranding } from './site-branding.mjs';
 
@@ -135,31 +136,31 @@ export function openPortal({ db, accounts, ui, defaults = {} }) {
   function renderEditor(state, profile = getProfile()) {
     const profileForm = profileFields.map(({ key, label, limit, required, multiline, hint, type }) => {
       const attributes = `name="${key}" maxlength="${limit}"${required ? ' required' : ''}`;
-      return `<label>${label}
+      return h`<label>${t(label)}
         ${multiline
-          ? `<textarea ${attributes} rows="3">${e(profile[key])}</textarea>`
-          : `<input type="${type ?? 'text'}" ${attributes} value="${e(profile[key])}">`}
-        ${hint ? `<span class="field-note">${hint}</span>` : ''}
+          ? h`<textarea ${attributes} rows="3">${e(profile[key])}</textarea>`
+          : h`<input type="${type ?? 'text'}" ${attributes} value="${e(profile[key])}">`}
+        ${hint ? h`<span class="field-note">${t(hint)}</span>` : ''}
       </label>`;
     }).join('');
-    const resultList = editorResults.all().filter(row => canEditResult(state.user, row.id)).map((row) => `<li class="record">
+    const resultList = editorResults.all().filter(row => canEditResult(state.user, row.id)).map((row) => h`<li class="record">
       <header class="record-head"><strong>${e(row.title)}</strong>
-        <span class="badge">${row.published ? '已展示' : '未展示'}</span></header>
-      <p class="field-note">${e(resultKinds[row.kind])} · ${e(row.date)}</p>
+        <span class="badge">${t(row.published ? '已展示' : '未展示')}</span></header>
+      <p class="field-note">${e(t(resultKinds[row.kind]))} · ${e(row.date)}</p>
       ${row.published && row.title !== row.public_title
-        ? `<p class="field-note">门户仍显示已发布的标题「${e(row.public_title)}」。</p>` : ''}
-      <details><summary>${row.published ? '编辑公开内容' : '选择公开展示'}</summary>
+        ? h`<p class="field-note">门户仍显示已发布的标题「${e(row.public_title)}」。</p>` : ''}
+      <details><summary>${t(row.published ? '编辑公开内容' : '选择公开展示')}</summary>
         <form class="stack record-form" method="post" action="${editorPath}/results/${row.id}">
           ${token(state)}
           <label>公开说明（选填）<textarea name="summary" maxlength="${summaryLimit}" rows="3">${e(row.summary)}</textarea></label>
           <label>公开链接（选填）<input type="url" name="url" maxlength="${resultUrlLimit}" value="${e(row.url)}"></label>
-          <button type="submit" class="button button--primary">${row.published ? '更新公开成果' : '发布到门户'}</button>
+          <button type="submit" class="button button--primary">${t(row.published ? '更新公开成果' : '发布到门户')}</button>
         </form>
       </details>
-      ${row.published ? `<form method="post" action="${editorPath}/results/${row.id}/hide">
+      ${row.published ? h`<form method="post" action="${editorPath}/results/${row.id}/hide">
         ${token(state)}<button type="submit" class="button button--plain">撤下公开展示</button></form>` : ''}
     </li>`).join('');
-    return layout(state, '门户管理', `
+    return layout(state, '门户管理', h`
       <header class="page-heading"><h1>门户管理</h1><p>这里管理访客无需登录即可看到的内容。</p></header>
       <div class="stack">
         <section class="panel" aria-labelledby="portal-logo-title">
@@ -170,7 +171,7 @@ export function openPortal({ db, accounts, ui, defaults = {} }) {
             ${token(state)}<label>选择新的 Logo<input name="logo" type="file" accept="image/png,image/jpeg" required></label>
             <div class="actions"><button type="submit" class="button button--primary">保存 Logo</button></div>
           </form>
-          ${branding.current() ? `<form class="record-form" method="post" action="${editorPath}/logo/restore">
+          ${branding.current() ? h`<form class="record-form" method="post" action="${editorPath}/logo/restore">
             ${token(state)}<p class="field-note">恢复后使用最初提供的实验室 Logo。</p>
             <button class="button button--plain" type="submit">恢复默认 Logo</button>
           </form>` : ''}
@@ -195,7 +196,7 @@ export function openPortal({ db, accounts, ui, defaults = {} }) {
           <h2 id="portal-results-title">精选成果</h2>
           <p>发布时使用当前成果的名称、类型和日期。公开说明和链接由你单独填写。</p>
           <p class="field-note">更新内部成果后，如需同步到门户，请在这里重新发布。</p>
-          ${resultList ? `<ul class="record-list">${resultList}</ul>` : '<p class="empty">暂无可选成果。</p>'}
+          ${resultList ? h`<ul class="record-list">${resultList}</ul>` : h`<p class="empty">暂无可选成果。</p>`}
           <a class="button button--plain" href="/teacher/results">打开成果管理</a>
         </section>
       </div>`);

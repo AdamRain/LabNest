@@ -1,3 +1,5 @@
+import { h, t } from './i18n.mjs';
+
 let controlSequence = 0;
 const accents = [
   ['emerald', '翡翠绿'], ['blue', '海洋蓝'], ['violet', '鸢尾紫'],
@@ -5,12 +7,12 @@ const accents = [
 ];
 
 export function themeHead() {
-  return '<script src="/theme.js"></script><link rel="stylesheet" href="/theme.css"><link rel="stylesheet" href="/appearance-controls.css"><link rel="stylesheet" href="/accent.css"><link rel="stylesheet" href="/glass.css">';
+  return '<script src="/i18n-messages.js"></script><script src="/i18n.js"></script><link rel="stylesheet" href="/language.css"><script src="/theme.js"></script><link rel="stylesheet" href="/theme.css"><link rel="stylesheet" href="/appearance-controls.css"><link rel="stylesheet" href="/accent.css"><link rel="stylesheet" href="/glass.css">';
 }
 
 export function themeControl() {
   const group = 'appearance-accent-' + (++controlSequence);
-  return `<details class="appearance-control" data-appearance-control>
+  return h`<details class="appearance-control" data-appearance-control>
     <summary class="appearance-trigger" aria-label="外观设置">
       <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M10 3a7 7 0 0 1 0 14V3Z" fill="currentColor"/></svg>
       <span>外观</span><span class="appearance-current" data-appearance-label>跟随系统</span>
@@ -25,9 +27,9 @@ export function themeControl() {
         </select>
       </label>
       <fieldset class="appearance-colors"><legend>主题色</legend>
-        <div class="appearance-swatches">${accents.map(([value, label]) => `<label class="appearance-swatch" data-color="${value}">
+        <div class="appearance-swatches">${accents.map(([value, label]) => h`<label class="appearance-swatch" data-color="${value}">
           <input type="radio" name="${group}" value="${value}" data-accent-choice${value === 'emerald' ? ' checked' : ''}>
-          <span class="appearance-swatch-dot" aria-hidden="true"></span><span>${label}</span>
+          <span class="appearance-swatch-dot" aria-hidden="true"></span><span>${t(label)}</span>
           <svg class="appearance-swatch-check" width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8 3 3 7-7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </label>`).join('')}</div>
       </fieldset>

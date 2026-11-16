@@ -1,3 +1,4 @@
+const translateLogin = (message, params = {}) => window.LabI18n?.t(message, params) ?? message.replace(/\{(\w+)\}/g, (match, key) => Object.hasOwn(params, key) ? String(params[key]) : match);
 document.querySelectorAll('[data-password-toggle]').forEach(button => {
   const password = document.getElementById(button.getAttribute('aria-controls'));
   if (!(password instanceof HTMLInputElement) || password.type !== 'password') return;
@@ -8,7 +9,7 @@ document.querySelectorAll('[data-password-toggle]').forEach(button => {
   button.addEventListener('click', () => {
     const show = password.type === 'password';
     password.type = show ? 'text' : 'password';
-    const label = show ? '隐藏密码' : '显示密码';
+    const label = translateLogin(show ? '隐藏密码' : '显示密码');
     button.setAttribute('aria-label', label);
     button.setAttribute('title', label);
     button.setAttribute('aria-pressed', String(show));
@@ -205,8 +206,8 @@ if (backgroundToggle && backgroundLayer && typeof backgroundLayer.animate === 'f
     requestedMotion = playing;
     document.body.dataset.backgroundMotion = playing ? 'running' : 'paused';
     backgroundToggle.setAttribute('aria-pressed', String(playing));
-    backgroundToggle.setAttribute('aria-label', playing ? '暂停背景动效' : '播放背景动效');
-    label.textContent = playing ? '暂停动效' : '播放动效';
+    backgroundToggle.setAttribute('aria-label', translateLogin(playing ? '暂停背景动效' : '播放背景动效'));
+    label.textContent = translateLogin(playing ? '暂停动效' : '播放动效');
     pauseIcon.toggleAttribute('hidden', !playing);
     playIcon.toggleAttribute('hidden', playing);
     syncPlayback();

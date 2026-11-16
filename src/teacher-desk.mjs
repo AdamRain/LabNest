@@ -1,9 +1,10 @@
+import { t, h, locale } from './i18n.mjs';
 const dayMs = 24 * 60 * 60 * 1000;
 const dateFormat = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Shanghai', dateStyle: 'short' });
-const timeFormat = new Intl.DateTimeFormat('zh-CN', {
+const timeFormat = { format: value => new Intl.DateTimeFormat(locale(), {
   timeZone: 'Asia/Shanghai', month: 'numeric', day: 'numeric',
   hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
-});
+}).format(value) };
 
 export function openTeacherDesk({ db, accounts, weekly, topics, ui }) {
   const e = ui.escapeHtml;
@@ -44,41 +45,41 @@ export function openTeacherDesk({ db, accounts, weekly, topics, ui }) {
   `);
 
   function metric(label, count, href) {
-    return `<a class="home-desk-metric" href="${e(href)}"><strong>${count}</strong><span>${label}</span></a>`;
+    return h`<a class="home-desk-metric" href="${e(href)}"><strong>${count}</strong><span>${t(label)}</span></a>`;
   }
 
   function bar(label, count, total) {
-    return `<div class="home-desk-bar">
-      <span>${label}</span>
-      <progress class="home-desk-progress" max="${Math.max(1, total)}" value="${count}" aria-label="${label}">${count} / ${total}</progress>
+    return h`<div class="home-desk-bar">
+      <span>${t(label)}</span>
+      <progress class="home-desk-progress" max="${Math.max(1, total)}" value="${count}" aria-label="${t(label)}">${count} / ${total}</progress>
       <strong>${count} / ${total}</strong>
     </div>`;
   }
 
   function chart(days) {
     const highest = Math.max(...days.flatMap(({ submit, review }) => [submit, review]));
-    if (!highest) return '<p class="empty">这 7 天暂无周报首次提交或审核记录。</p>';
+    if (!highest) return h`<p class="empty">这 7 天暂无周报首次提交或审核记录。</p>`;
     const baseline = 122;
     const height = 100;
     const ticks = highest >= 2 ? [0, Math.floor(highest / 2), highest] : [0, highest];
     const description = days.map(({ date, submit, review }) =>
-      `${date.slice(5)}提交 ${submit} 份，审核 ${review} 项`).join('。');
-    return `
+      t('{date}提交 {submit} 份，审核 {review} 项', { date: date.slice(5), submit, review })).join('。');
+    return h`
       <svg class="home-desk-chart" viewBox="0 0 540 150" role="img" aria-labelledby="desk-trend-title desk-trend-desc">
         <title id="desk-trend-title">近 7 天周报提交与审核</title>
         <desc id="desk-trend-desc">${e(description)}</desc>
         ${ticks.map(value => {
           const y = baseline - height * value / highest;
-          return `<line class="home-desk-chart-grid" x1="33" y1="${y}" x2="535" y2="${y}"/>
+          return h`<line class="home-desk-chart-grid" x1="33" y1="${y}" x2="535" y2="${y}"/>
             <text x="27" y="${y + 4}" text-anchor="end">${value}</text>`;
         }).join('')}
         ${days.map(({ date, submit, review }, index) => {
           const x = 68 + index * 71;
           const submitted = height * submit / highest;
           const reviewed = height * review / highest;
-          return `<g>
-            ${submit ? `<rect class="home-desk-series-submit" x="${x - 14}" y="${baseline - submitted}" width="12" height="${submitted}" rx="2"/>` : ''}
-            ${review ? `<rect class="home-desk-series-review" x="${x + 2}" y="${baseline - reviewed}" width="12" height="${reviewed}" rx="2"/>` : ''}
+          return h`<g>
+            ${submit ? h`<rect class="home-desk-series-submit" x="${x - 14}" y="${baseline - submitted}" width="12" height="${submitted}" rx="2"/>` : ''}
+            ${review ? h`<rect class="home-desk-series-review" x="${x + 2}" y="${baseline - reviewed}" width="12" height="${reviewed}" rx="2"/>` : ''}
             <text x="${x}" y="143" text-anchor="middle">${e(date.slice(5))}</text>
           </g>`;
         }).join('')}
@@ -115,42 +116,42 @@ export function openTeacherDesk({ db, accounts, weekly, topics, ui }) {
     const submitted = onTime + late;
     const queue = queueCounts.get(scope);
     const items = [
-      ['注册与资料审核', queue.applications, '/teacher?reviewStatus=pending#students-heading'],
-      ['请假审批', queue.leaves, weeklyPath],
-      ['实习审核', queue.internships, '/teacher/internships'],
-      ['毕业任务确认', queue.graduation, '/teacher/graduation'],
-      ['课题审核', queue.topics, '/teacher/topics']
+      [t('注册与资料审核'), queue.applications, '/teacher?reviewStatus=pending#students-heading'],
+      [t('请假审批'), queue.leaves, weeklyPath],
+      [t('实习审核'), queue.internships, '/teacher/internships'],
+      [t('毕业任务确认'), queue.graduation, '/teacher/graduation'],
+      [t('课题审核'), queue.topics, '/teacher/topics']
     ];
     const actionCount = items.reduce((total, [, count]) => total + count, 0);
     const byLevel = [
-      ['本科生', required.filter(report => report.student.level === 'undergraduate')],
-      ['研究生', required.filter(report => report.student.level === 'graduate')]
+      [t('本科生'), required.filter(report => report.student.level === 'undergraduate')],
+      [t('研究生'), required.filter(report => report.student.level === 'graduate')]
     ];
     const notices = latestNotices.all();
-    return `<section class="home-desk" aria-labelledby="teacher-home-title">
+    return h`<section class="home-desk" aria-labelledby="teacher-home-title">
       <header class="home-desk-heading">
         <h1 id="teacher-home-title">教师工作台</h1>
         <p>本周 ${e(week)} 至 ${e(weekEnd)}</p>
       </header>
       <nav class="home-desk-metrics" aria-label="本周周报和待办总览">
-        ${metric('本周应交', required.length, weeklyPath)}
-        ${metric('已交周报', submitted, weeklyPath)}
-        ${metric('待交周报', missing.length, '#home-desk-missing')}
-        ${metric('逾期未交', overdue, '#home-desk-missing')}
-        ${metric('待处理事项', actionCount, '#home-desk-queue')}
+        ${metric(t('本周应交'), required.length, weeklyPath)}
+        ${metric(t('已交周报'), submitted, weeklyPath)}
+        ${metric(t('待交周报'), missing.length, '#home-desk-missing')}
+        ${metric(t('逾期未交'), overdue, '#home-desk-missing')}
+        ${metric(t('待处理事项'), actionCount, '#home-desk-queue')}
       </nav>
       <div class="home-desk-grid">
         <div class="home-desk-main">
           <section class="panel home-desk-card">
             <header class="home-desk-card-heading"><h2>本周周报进度</h2><a href="${e(weeklyPath)}">查看周报</a></header>
-            ${required.length ? `<p><strong>${submitted} / ${required.length}</strong> 位应交学生已提交</p>
+            ${required.length ? h`<p><strong>${submitted} / ${required.length}</strong> 位应交学生已提交</p>
               <div class="home-desk-bars">
-                ${bar('按时提交', onTime, required.length)}
-                ${bar('逾期补交', late, required.length)}
-                ${bar('尚未提交', missing.length, required.length)}
+                ${bar(t('按时提交'), onTime, required.length)}
+                ${bar(t('逾期补交'), late, required.length)}
+                ${bar(t('尚未提交'), missing.length, required.length)}
                 ${byLevel.filter(([, group]) => group.length).map(([label, group]) =>
                   bar(label, group.filter(report => report.submission !== 'not-submitted').length, group.length)).join('')}
-              </div>` : '<p class="empty">本周暂无需要提交周报的学生。</p>'}
+              </div>` : h`<p class="empty">本周暂无需要提交周报的学生。</p>`}
           </section>
           <section class="panel home-desk-card">
             <header class="home-desk-card-heading"><h2>近 7 天提交与审核</h2></header>
@@ -158,20 +159,20 @@ export function openTeacherDesk({ db, accounts, weekly, topics, ui }) {
           </section>
           <section class="panel home-desk-card" id="home-desk-missing">
             <header class="home-desk-card-heading"><h2>应交未交</h2><a href="${e(weeklyPath)}">完整名单</a></header>
-            ${missing.length ? `<ul class="home-desk-list">${missing.slice(0, 6).map(report => `<li>
+            ${missing.length ? h`<ul class="home-desk-list">${missing.slice(0, 6).map(report => h`<li>
               <a href="/teacher/weekly/${encodeURIComponent(report.student.id)}?week=${e(week)}">${e(report.student.name)}</a>
-              <span>${report.overdue ? '<span class="badge badge--rejected">已逾期</span> ' : ''}
+              <span>${report.overdue ? h`<span class="badge badge--rejected">已逾期</span> ` : ''}
                 截止 ${e(timeFormat.format(report.dueAt))}</span>
             </li>`).join('')}</ul>
-            ${missing.length > 6 ? `<p class="field-note">另有 ${missing.length - 6} 位学生待交。</p>` : ''}`
-            : '<p class="empty">本周暂无应交未交的周报。</p>'}
+            ${missing.length > 6 ? h`<p class="field-note">另有 ${missing.length - 6} 位学生待交。</p>` : ''}`
+            : h`<p class="empty">本周暂无应交未交的周报。</p>`}
           </section>
         </div>
         <aside class="home-desk-side" aria-label="教师待办与工具">
           <section class="panel home-desk-card" id="home-desk-queue">
             <header class="home-desk-card-heading"><h2>待我处理</h2></header>
             <ul class="home-desk-list">${items.map(([label, count, href]) =>
-              `<li><a href="${e(href)}">${label}</a><strong>${count}</strong></li>`).join('')}</ul>
+              h`<li><a href="${e(href)}">${t(label)}</a><strong>${count}</strong></li>`).join('')}</ul>
           </section>
           ${topics?.teacherDashboard(state.user) ?? ''}
           <section class="panel home-desk-card">
@@ -186,9 +187,9 @@ export function openTeacherDesk({ db, accounts, weekly, topics, ui }) {
           </section>
           <section class="panel home-desk-card">
             <header class="home-desk-card-heading"><h2>最近发布的通知</h2><a href="/teacher/notices">查看全部</a></header>
-            ${notices.length ? `<ul class="home-desk-list">${notices.map(notice =>
-              `<li><span>${e(notice.title)}</span><time datetime="${e(notice.publishedAt)}">${e(timeFormat.format(new Date(notice.publishedAt)))}</time></li>`).join('')}</ul>`
-              : '<p class="empty">暂无已发布通知。</p>'}
+            ${notices.length ? h`<ul class="home-desk-list">${notices.map(notice =>
+              h`<li><span>${e(notice.title)}</span><time datetime="${e(notice.publishedAt)}">${e(timeFormat.format(new Date(notice.publishedAt)))}</time></li>`).join('')}</ul>`
+              : h`<p class="empty">暂无已发布通知。</p>`}
           </section>
         </aside>
       </div>

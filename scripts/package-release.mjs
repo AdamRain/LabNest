@@ -8,7 +8,7 @@ import { deflateRawSync } from 'node:zlib';
 import { spawnSync } from 'node:child_process';
 
 const sourceDirectories = ['src', 'public', 'test', 'scripts', 'fixtures', 'docs', 'deploy', '.github'];
-const sourceFiles = ['README.md', 'LICENSE', 'SECURITY.md', 'CONTRIBUTING.md', 'THIRD_PARTY_NOTICES.md',
+const sourceFiles = ['README.md', 'README.en.md', 'LICENSE', 'SECURITY.md', 'CONTRIBUTING.md', 'THIRD_PARTY_NOTICES.md',
   'DEMO.md', 'package.json', 'package-lock.json', '.env.example', '.gitignore', '.gitattributes', '.nvmrc'];
 const privateDirectories = new Set(['data', 'node_modules', '.runtime', '.git', 'dist', 'tmp', 'coverage', 'backups']);
 const privateExtension = /\.(?:sqlite3?(?:-(?:shm|wal))?|db3?|pem|key|p12|pfx|jks|crt|cer|log|bak|dump|zip|tar|tgz|gz|7z)$/i;

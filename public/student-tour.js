@@ -1,3 +1,4 @@
+const translateStudentTour = (message, params = {}) => window.LabI18n?.t(message, params) ?? message.replace(/\{(\w+)\}/g, (match, key) => Object.hasOwn(params, key) ? String(params[key]) : match);
 const steps = [
   {
     key: 'weekly',
@@ -176,11 +177,11 @@ function startTour(dialog) {
 
   function renderStep() {
     const step = steps[activeStep];
-    count.textContent = '第 ' + (activeStep + 1) + ' 步，共 ' + steps.length + ' 步';
-    title.textContent = step.title;
-    description.textContent = step.description;
+    count.textContent = translateStudentTour('第 {step} 步，共 {total} 步', { step: activeStep + 1, total: steps.length });
+    title.textContent = translateStudentTour(step.title);
+    description.textContent = translateStudentTour(step.description);
     previous.hidden = activeStep === 0;
-    next.textContent = activeStep === steps.length - 1 ? '完成' : '下一步';
+    next.textContent = translateStudentTour(activeStep === steps.length - 1 ? '完成' : '下一步');
     card.scrollTop = 0;
     if (!dialog.open) dialog.showModal();
     position({ scrollToTarget: true });

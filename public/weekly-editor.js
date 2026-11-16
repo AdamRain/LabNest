@@ -1,3 +1,4 @@
+const translateWeeklyEditor = (message, params = {}) => window.LabI18n?.t(message, params) ?? message.replace(/\{(\w+)\}/g, (match, key) => Object.hasOwn(params, key) ? String(params[key]) : match);
 // The editor progressively enhances the ordinary textarea. The server accepts a
 // constrained document and validates attachment references independently.
 (() => {
@@ -10,7 +11,7 @@
   let selectedRange = null, fileSequence = 0;
   const staged = [], urls = new Set();
   const imageTypes = new Set(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
-  const notify = message => { feedback.textContent = message; };
+  const notify = message => { feedback.textContent = translateWeeklyEditor(message); };
   const checkCount = () => {
     if (form.querySelectorAll('input[name="retainedAttachment"]:checked').length + staged.length > 5) throw new Error('每份周报最多保留 5 个附件，请先移除文件或取消保留。');
   };
@@ -89,7 +90,7 @@
     for (const item of staged) {
       const row = document.createElement('div'); row.className = 'weekly-staged-file';
       const name = document.createElement('span'); name.textContent = item.file.name;
-      const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = '移除'; remove.setAttribute('aria-label', `移除 ${item.file.name}`);
+      const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = translateWeeklyEditor('移除'); remove.setAttribute('aria-label', translateWeeklyEditor('移除 {name}', { name: item.file.name }));
       remove.addEventListener('click', () => {
         const index = staged.indexOf(item); if (index >= 0) staged.splice(index, 1);
         editor.querySelectorAll('img[data-upload-key]').forEach(image => { if (image.dataset.uploadKey === item.key) image.remove(); });
@@ -109,7 +110,7 @@
       if (inline) {
         const figure = document.createElement('figure'), image = document.createElement('img');
         item.url = URL.createObjectURL(file); urls.add(item.url);
-        image.src = item.url; image.alt = '工作计划插图'; image.dataset.uploadKey = item.key;
+        image.src = item.url; image.alt = translateWeeklyEditor('工作计划插图'); image.dataset.uploadKey = item.key;
         figure.append(image); insert(figure);
       }
     }

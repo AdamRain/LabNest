@@ -17,6 +17,7 @@ import { openPhotos, photoLimit } from './photos.mjs';
 import { openPortal } from './portal.mjs';
 import { openTeacherDesk } from './teacher-desk.mjs';
 import { openStudentDesk } from './student-desk.mjs';
+import { withLocale, requestLocale, locale, languageCookie, supportedLocales, safeReturnPath, clientMessages, t } from './i18n.mjs';
 import { aboutPage, contactPage, newsArchive, portalPage, publicArticlePage, publicationsPage, researchPage } from './portal-views.mjs';
 import {
   escapeHtml, forgotPasswordPage, layout, loginPage, mailSettingsPage, messagePage, newsForm, registerPage, resetPasswordPage,
@@ -29,6 +30,8 @@ const assets = new Map([
   ['admin.css', 'text/css; charset=utf-8'],
   ['theme.css', 'text/css; charset=utf-8'],
   ['theme.js', 'text/javascript; charset=utf-8'],
+  ['i18n.js', 'text/javascript; charset=utf-8'],
+  ['language.css', 'text/css; charset=utf-8'],
   ['appearance-controls.css', 'text/css; charset=utf-8'],
   ['accent.css', 'text/css; charset=utf-8'],
   ['glass.css', 'text/css; charset=utf-8'],
@@ -401,11 +404,27 @@ export function createLabServer({ db, options = {}, secureCookies = false, cooki
     try { connection.assert(request); }
     catch {
       response.writeHead(426, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store', Connection: 'close' });
-      response.end('请通过正确的 HTTPS 地址访问。');
+      response.end(t('请通过正确的 HTTPS 地址访问。'));
       request.resume();
       return;
     }
     const url = new URL(request.url, 'http://localhost');
+    if (request.method === 'GET' && url.pathname === '/language') {
+      const language = url.searchParams.get('lang');
+      if (!supportedLocales.includes(language)) {
+        response.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
+        response.end(t('不支持此语言。'));
+        return;
+      }
+      setCookie(response, languageCookie, language, '; Max-Age=31536000');
+      redirect(response, safeReturnPath(url.searchParams.get('returnTo')));
+      return;
+    }
+    if (request.method === 'GET' && url.pathname === '/i18n-messages.js') {
+      response.writeHead(200, { 'Content-Type': 'text/javascript; charset=utf-8', 'Cache-Control': 'no-cache' });
+      response.end('window.LabMessages=' + JSON.stringify(clientMessages()).replaceAll('<', '\\u003c') + ';');
+      return;
+    }
     if (url.pathname === '/reset-password' || url.pathname === '/forgot-password') {
       response.setHeader('Referrer-Policy', 'no-referrer');
     }
@@ -495,7 +514,7 @@ export function createLabServer({ db, options = {}, secureCookies = false, cooki
   const handleRequest = (request, response) => {
     response.setHeader('X-Content-Type-Options', 'nosniff');
     response.setHeader('Referrer-Policy', 'same-origin');
-    dispatch(request, response).catch((error) => {
+    withLocale(requestLocale(request), () => dispatch(request, response), { returnTo: request.url }).catch((error) => {
       console.error(error);
       if (!response.headersSent) response.writeHead(500);
       response.end();
@@ -595,6 +614,7 @@ function html(response, body, status = 200) {
   response.writeHead(status, {
     'Content-Type': 'text/html; charset=utf-8',
     'Cache-Control': 'no-store',
+    'Content-Language': locale(),
     'Content-Security-Policy': "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' blob:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'"
   });
   response.end(body);

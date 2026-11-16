@@ -1,8 +1,10 @@
+[简体中文](README.md) · [English](README.en.md)
+
 <div align="center">
   <img src="public/lab-logo.png" alt="研栖 LabNest 标识" width="88" height="88">
   <h1>研栖 · LabNest</h1>
   <p>把科研进展、团队交流和实验室日常放在一起。</p>
-  <p><a href="#快速体验">快速体验</a> · <a href="https://github.com/AdamRain/LabNest/releases/latest">下载 Release</a> · <a href="docs/USER_GUIDE.md">使用手册</a> · <a href="docs/DEPLOYMENT.md">部署说明</a> · <a href="DEMO.md">Demo 账号</a></p>
+  <p><a href="#快速体验">快速体验</a> · <a href="#快速安装">快速安装</a> · <a href="https://github.com/AdamRain/LabNest/releases/latest">下载 Release</a> · <a href="docs/USER_GUIDE.md">使用手册</a> · <a href="docs/DEPLOYMENT.md">部署说明</a> · <a href="DEMO.md">Demo 账号</a></p>
   <p><img alt="Node.js 24+" src="https://img.shields.io/badge/Node.js-24%2B-43853d"> <img alt="SQLite" src="https://img.shields.io/badge/SQLite-本地存储-3975a5"> <img alt="MIT" src="https://img.shields.io/badge/License-MIT-126c55"></p>
 </div>
 
@@ -25,6 +27,7 @@ LabNest 是面向科研团队的实验室网站与内部协作平台。访客可
 | 日历与提醒 | 月历、当日备注、个人事项、会议 DDL；支持增删改 ICS 订阅及手动同步 |
 | 培养与档案 | 学生资料审核、论文课题、毕业任务、研究生实习、实验室成果和站内通知 |
 | 个人展示 | 独立个人主页，草稿与发布分离；导出 PDF、Word 简历，简历可带当前生活照 |
+| 界面语言 | 中文、英文切换；独立语言按钮会记住浏览器选择，用户填写的内容保留原文 |
 | 外观与指引 | 六种主题色、浅色、深色、跟随系统，磨砂玻璃界面和首次使用导览 |
 
 ## 快速体验
@@ -64,9 +67,17 @@ npm run demo -- --port 4181
 3. 用教师账号查看首页统计、待办和学生动态，再打开该学生的周报。主、副指导教师按分配关系查看学生。
 4. 用管理员账号查看待审核用户和导师分配。管理员的用户管理权限不等于教师业务页面权限。
 5. 学生从「个人主页与简历」预览公开介绍并导出简历；访客可直接打开已发布的个人主页。
-6. 打开「外观」切换主题色与深浅色，或通过 `/portal` 预览实验室公开网站。
+6. 打开「外观」切换主题色与深浅色；使用旁边独立的 English / 中文按钮切换界面语言，或通过 `/portal` 预览实验室公开网站。
 
 完整操作步骤、权限边界和常见问题见 **[使用手册](docs/USER_GUIDE.md)**。
+
+## 快速安装
+
+准备供教师和学生正式使用时，打开 **[中文安装提示词](docs/INSTALL_PROMPT.zh-CN.md)**，填写目标机器、访问范围、域名及首个管理员信息，再将完整提示词复制给具有目标机器访问权限的开发助手。
+
+提示词要求先阅读部署文档、检查机器环境、备份已有实例，使用独立正式数据库与随机初始密码，配置 HTTPS、后台服务、备份并逐项验收。密码、私钥和邮件授权码在本机安全填写，不发送到聊天中；缺少域名、证书或权限时，先完成可执行的准备工作并说明待办。
+
+手动安装参照 [部署说明](docs/DEPLOYMENT.md)。English: [installation prompt](docs/INSTALL_PROMPT.en.md).
 
 ## 界面预览
 
@@ -147,6 +158,7 @@ test/                   自动化测试
 docs/
    USER_GUIDE.md        完整使用手册
    DEPLOYMENT.md        空库部署、HTTPS、备份和恢复
+   INSTALL_PROMPT.*.md   可复制的中英文安装提示词
    screenshots/         仅使用新 Demo 拍摄的界面截图
 deploy/linux/          Linux 服务与 Caddy 配置模板
 ```
@@ -162,10 +174,11 @@ deploy/linux/          Linux 服务与 Caddy 配置模板
 - 用户资料和附件受身份、审核状态及导师关系限制；公开门户和个人主页使用主动发布的内容。学生主动分享的周报动态只分享文字，附件和插图不会自动开放给其他学生。
 - 密码找回需要管理员配置真实的发件服务和绑定邮箱。源码和 Demo 不包含 SMTP 凭据，未配置时不会实际发信。
 - Demo 会议截止为虚构数据。实际使用时应自行添加并同步订阅，并以会议官网为准。
-- 默认使用 `Asia/Shanghai` 计算周次及截止时间，界面语言为中文。
+- 默认使用 `Asia/Shanghai` 计算周次及截止时间；界面默认中文，可切换为英文。周报、回复、姓名等用户内容保留原文。
 
 ## 文档
 
+- [中文安装提示词](docs/INSTALL_PROMPT.zh-CN.md) / [English installation prompt](docs/INSTALL_PROMPT.en.md)：填写部署信息后复制给开发助手。
 - [使用手册](docs/USER_GUIDE.md)：管理员、教师、学生的日常操作与 FAQ。
 - [Demo 说明](DEMO.md)：虚构账号、数据范围、启动与重新体验。
 - [部署说明](docs/DEPLOYMENT.md)：Node.js、配置、HTTPS、运行、备份和恢复。

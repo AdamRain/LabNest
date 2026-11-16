@@ -1,3 +1,4 @@
+import { t, h } from './i18n.mjs';
 const adminGroups = [['用户管理', [['/admin', '全部用户']]], ['系统设置', [['/admin/mail', '邮件设置']]]];
 
 const teacherGroups = [
@@ -36,7 +37,7 @@ const navIcons = {
 };
 
 function icon(markup) {
-  return `<svg class="workspace-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round">${markup}</svg>`;
+  return h`<svg class="workspace-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round">${markup}</svg>`;
 }
 
 function studentGroups(user) {
@@ -79,14 +80,14 @@ function currentLink(groups, path, home) {
 }
 
 function menuLinks(groups, current) {
-  return groups.map(([title, links]) => `
+  return groups.map(([title, links]) => h`
     <div class="workspace-nav-group">
-      ${title ? `<p class="workspace-nav-label">${title}</p>` : ''}
+      ${title ? h`<p class="workspace-nav-label">${t(title)}</p>` : ''}
       <ul class="workspace-nav-list">
         ${links.map(([href, label]) => {
           const graphic = navIcons[href.split('/')[2]] ?? navIcons.home;
           const target = href === '/student/profile' ? 'profile' : href === '/student/guide' ? 'guide' : '';
-          return `<li><a class="workspace-nav-link" href="${href}"${href === current ? ' aria-current="page"' : ''}${target ? ` data-tour-target="${target}"` : ''}>${icon(graphic)}<span>${label}</span></a></li>`;
+          return h`<li><a class="workspace-nav-link" href="${href}"${href === current ? ' aria-current="page"' : ''}${target ? h` data-tour-target="${target}"` : ''}>${icon(graphic)}<span>${t(label)}</span></a></li>`;
         }).join('')}
       </ul>
     </div>
@@ -94,17 +95,17 @@ function menuLinks(groups, current) {
 }
 
 function publishLink(current) {
-  return `<a class="workspace-publish-link" href="/teacher/news/new"${current === '/teacher/news/new' ? ' aria-current="page"' : ''}>${icon('<path d="M12 5v14M5 12h14"/>')}发布公开动态</a>`;
+  return h`<a class="workspace-publish-link" href="/teacher/news/new"${current === '/teacher/news/new' ? ' aria-current="page"' : ''}>${icon('<path d="M12 5v14M5 12h14"/>')}发布公开动态</a>`;
 }
 
 function menu(groups, current, isTeacher, pendingCount, showPublish = false) {
-  return `<nav class="workspace-nav" aria-label="${isTeacher ? '教师功能' : '学生功能'}">
-    ${isTeacher && (showPublish || pendingCount > 0) ? `<div class="workspace-publish">
+  return h`<nav class="workspace-nav" aria-label="${t(isTeacher ? '教师功能' : '学生功能')}">
+    ${isTeacher && (showPublish || pendingCount > 0) ? h`<div class="workspace-publish">
       ${showPublish ? publishLink(current) : ''}
-      ${pendingCount > 0 ? `<a class="workspace-review-link" href="/teacher?reviewStatus=pending#students-heading">待审核申请 <span>${pendingCount}</span></a>` : ''}
+      ${pendingCount > 0 ? h`<a class="workspace-review-link" href="/teacher?reviewStatus=pending#students-heading">待审核申请 <span>${pendingCount}</span></a>` : ''}
     </div>` : ''}
     ${menuLinks(groups, current)}
-    <a class="workspace-public-link" href="${isTeacher ? "/portal" : "/student/homepage"}">${isTeacher ? "预览展示网站" : "个人主页与简历"} ${icon('<path d="M7 17 17 7M7 7h10v10"/>')}</a>
+    <a class="workspace-public-link" href="${isTeacher ? "/portal" : "/student/homepage"}">${t(isTeacher ? "预览展示网站" : "个人主页与简历")} ${icon('<path d="M7 17 17 7M7 7h10v10"/>')}</a>
   </nav>`;
 }
 
@@ -124,18 +125,18 @@ export function workspaceFrame(state, inner, { pendingCount = 0 } = {}) {
     : groups.flatMap(([, links]) => links).find(([href]) => href === current)?.[1];
   const count = Number.isSafeInteger(pendingCount) ? pendingCount : 0;
 
-  return `<div class="workspace-shell">
+  return h`<div class="workspace-shell">
     <aside class="workspace-rail">
       <div class="workspace-rail-head">
         <span class="workspace-rail-mark">${icon('<path d="m12 2 9 5v10l-9 5-9-5V7zM7 9h3l2 2h5m-10 4h4l2-2h4"/><circle cx="17" cy="11" r=".8"/><circle cx="7" cy="15" r=".8"/>')}</span>
-        <p class="workspace-rail-title">${isAdmin ? '管理员工作台' : isTeacher ? '教师工作台' : '学生工作台'}</p>
+        <p class="workspace-rail-title">${t(isAdmin ? '管理员工作台' : isTeacher ? '教师工作台' : '学生工作台')}</p>
       </div>
-      ${isAdmin ? `<nav class="workspace-nav" aria-label="管理员功能">${menuLinks(groups, current)}</nav>` : menu(groups, current, isTeacher, count, true)}
+      ${isAdmin ? h`<nav class="workspace-nav" aria-label="管理员功能">${menuLinks(groups, current)}</nav>` : menu(groups, current, isTeacher, count, true)}
     </aside>
     <div class="workspace-mobile-tools">
       <details class="workspace-mobile-menu">
-        <summary>${icon('<path d="M5 7h14M5 12h14M5 17h14"/>')}<span>工作台菜单<small>${section}</small></span>${icon('<path d="m6 9 6 6 6-6"/>')}</summary>
-        ${isAdmin ? `<nav class="workspace-nav" aria-label="管理员功能">${menuLinks(groups, current)}</nav>` : menu(groups, current, isTeacher, count)}
+        <summary>${icon('<path d="M5 7h14M5 12h14M5 17h14"/>')}<span>工作台菜单<small>${t(section)}</small></span>${icon('<path d="m6 9 6 6 6-6"/>')}</summary>
+        ${isAdmin ? h`<nav class="workspace-nav" aria-label="管理员功能">${menuLinks(groups, current)}</nav>` : menu(groups, current, isTeacher, count)}
       </details>
       ${isTeacher && current !== '/teacher/news/new' ? publishLink(current) : ''}
     </div>

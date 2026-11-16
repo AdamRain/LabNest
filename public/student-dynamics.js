@@ -1,3 +1,4 @@
+const translateStudentDynamics = (message, params = {}) => window.LabI18n?.t(message, params) ?? message.replace(/\{(\w+)\}/g, (match, key) => Object.hasOwn(params, key) ? String(params[key]) : match);
 const publicationForms = [...document.querySelectorAll('[data-publication-form]')];
 
 publicationForms.forEach(form => {
@@ -17,7 +18,7 @@ publicationForms.forEach(form => {
   };
   const summaryReady = () => {
     if (!checkbox.checked || !summary || summary.value.trim()) return true;
-    showError('请先填写动态摘要，再勾选发布。');
+    showError(translateStudentDynamics('请先填写动态摘要，再勾选发布。'));
     summary.focus();
     return false;
   };
@@ -31,7 +32,7 @@ publicationForms.forEach(form => {
     pending = true;
     selected = checkbox.checked;
     form.setAttribute('aria-busy', 'true');
-    if (status) status.textContent = '正在保存…';
+    if (status) status.textContent = translateStudentDynamics('正在保存…');
     showError('');
   });
   checkbox.addEventListener('change', () => {

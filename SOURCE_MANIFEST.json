@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "project": "LabNest",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "files": {
     ".env.example": {
       "bytes": 1553,
@@ -28,16 +28,20 @@
       "sha256": "6a98c1ec4a6f790ad5cc4e4ec2c9847e554bdb3532b356a75910d5add3693ea8"
     },
     "DEMO.md": {
-      "bytes": 6032,
-      "sha256": "6d9060416329efc22a17139aafbdba40af6b1875c30387db1c0392b61b12b3b2"
+      "bytes": 7828,
+      "sha256": "38f7a9160440d858dc065c369bcd46a4c4f7473443942cb805d8acf17a276d13"
     },
     "LICENSE": {
       "bytes": 1060,
       "sha256": "ae976d99c625f19a203197cf6d36e63fd0487dcba3834f19408a61498fe25141"
     },
+    "README.en.md": {
+      "bytes": 13917,
+      "sha256": "6a1c29b3db336d0c73d5563a6053c168c938cc81e5f5558354461446978b75b6"
+    },
     "README.md": {
-      "bytes": 9985,
-      "sha256": "ccff712a07882eb4e5ee3ca92d45eccfab38517a7477999c03af378e6ea9d6ee"
+      "bytes": 11343,
+      "sha256": "8addcf8886a317c8170d5021cb1c8dd5003139972eb044fa8596c30fcd803d45"
     },
     "SECURITY.md": {
       "bytes": 1947,
@@ -68,20 +72,28 @@
       "sha256": "0af188841ab5114ce6d3218d6e16f12489bbe3b41710f21b8c5ca44511bebc3d"
     },
     "docs/DEPLOYMENT.md": {
-      "bytes": 14716,
-      "sha256": "b0760571e3e9d0e32c6d21fb7b507a7e222ceefd9621a8956d099bdc8394d25d"
+      "bytes": 14956,
+      "sha256": "0c075095ade6eeba6846e888dac7a2dd7ba2d10a45c226978a0ede4c878c5d99"
+    },
+    "docs/INSTALL_PROMPT.en.md": {
+      "bytes": 4860,
+      "sha256": "dac733195007d84193d7bfc080a078457dafb170e136bbd4b71123ca2e8a8727"
+    },
+    "docs/INSTALL_PROMPT.zh-CN.md": {
+      "bytes": 3699,
+      "sha256": "4ada7ce7b30e50a4ef275bc9649049b2f2552ff013c959cbb2aee3bd7b934a0b"
     },
     "docs/RELEASE_CHECKS.md": {
       "bytes": 1504,
       "sha256": "3e6e1f4c6189b366e6630991e8d8389db51cd86a1b9e0298c0e292dfaafe3bb3"
     },
     "docs/RELEASE_NOTES.md": {
-      "bytes": 1591,
-      "sha256": "c41a131b0d67c86200c7773f55237e7d747b17296421619104dd804a9efcff7d"
+      "bytes": 2363,
+      "sha256": "78bb597a786e8f5f8f8cc7fbe7c238badd4a5bfae5be4e63a3e25bc9700c2174"
     },
     "docs/USER_GUIDE.md": {
-      "bytes": 27861,
-      "sha256": "3c37912e362a603b73ce7dd609a8475ab3563e357c6d01be8957b860ca7fbf25"
+      "bytes": 28618,
+      "sha256": "367f581e42d560bb3cd0c0721c1c6149036718d84036cb38c3c3989ee931d678"
     },
     "docs/screenshots/admin-users.png": {
       "bytes": 410735,
@@ -129,11 +141,11 @@
     },
     "package-lock.json": {
       "bytes": 9447,
-      "sha256": "5115ceeb655c219e38256ea1f50bc8c68ae6957320291cf6220a3518f6831603"
+      "sha256": "b7b5481898bb97df3799638c1c100da63c0b2295cae4259bbbb20b0fa0d38727"
     },
     "package.json": {
       "bytes": 959,
-      "sha256": "f6c0830ac20cb1ab8e3cf5400755acf5228b2e6ebacbce5b9b98add64e215bd6"
+      "sha256": "a6545a44fcfcb1346305f28a339fb64a5c934516df7d226c92d057ccb1ad0e72"
     },
     "public/accent.css": {
       "bytes": 10728,
@@ -160,8 +172,8 @@
       "sha256": "7f26c1cf31e8dc1a0af748584223a96648f3d0d3f883c1907b39212b342534fb"
     },
     "public/calendar-preview.js": {
-      "bytes": 6548,
-      "sha256": "c7d6b9d42d3bf1e2ebd1b93b9c9d2e07b1073c48009f758fa2e13be56dc85441"
+      "bytes": 6776,
+      "sha256": "d8680cbcb49b09fe161ed01d75c3afa17beb8a5fbe441a5ed99f165bf236c29a"
     },
     "public/glass.css": {
       "bytes": 7918,
@@ -171,21 +183,29 @@
       "bytes": 11486,
       "sha256": "8c638bbd08359e4d6b7bc97daab210a02dde5ac58f8d9ed12ee001ce3ec31f67"
     },
+    "public/i18n.js": {
+      "bytes": 3157,
+      "sha256": "8cf95b67282248989216dc6b36fb6c3f4a75e3b9cc5571972486d7eadbbd3e04"
+    },
     "public/lab-logo.png": {
       "bytes": 717584,
       "sha256": "de7b0bc7c2a8e37cf848e0e5837b8a97147375e9b117b83bf1c26dfafb512c12"
+    },
+    "public/language.css": {
+      "bytes": 1874,
+      "sha256": "358348b4b78e4c73a461766863042ccdbedf3a9d01054e6cb921eab0e2c649a8"
     },
     "public/login-entry.css": {
       "bytes": 11081,
       "sha256": "7594bb70906e5b8e2a23d462b9c45255afffcb82d8dc313a42a79e547a3c6787"
     },
     "public/login.js": {
-      "bytes": 10633,
-      "sha256": "70f28262df59dfe5fe74aebb6f7f0962e4c99dc659ba1337285b7ecc1dce6eab"
+      "bytes": 10873,
+      "sha256": "17d104a07e22757e7acf6fc97b6a51be910e507a743cca46095838a174fe2007"
     },
     "public/portal-gallery.js": {
-      "bytes": 1096,
-      "sha256": "e7045f5e0bfaff41b9d2c8403faeca53be35a2251fa4bf1c099d7a827da8c5d5"
+      "bytes": 1344,
+      "sha256": "e5b202074a467151b004c5f08b1eb5fccfef0c1f038925436617c30f16a7071b"
     },
     "public/portal-navigation.js": {
       "bytes": 284,
@@ -196,8 +216,8 @@
       "sha256": "0dfa9b7e7f1111ff2a45f2c5dc5e79182d9aade7f1be312fe4dc56232cbc9118"
     },
     "public/student-dynamics.js": {
-      "bytes": 4091,
-      "sha256": "0a82e55af3079a8edb9811e36fb012dcf401d6549a0e25dcb732602d33c9537e"
+      "bytes": 4345,
+      "sha256": "b94576c6f1885792c34e9200dac6d731828d01ae64fc2d8377e58e9b8d1681be"
     },
     "public/student-site.css": {
       "bytes": 10695,
@@ -208,8 +228,8 @@
       "sha256": "df9e6b6548d63a96711045afcd69b7971a9b809f13565ce2653c641f0667d58a"
     },
     "public/student-tour.js": {
-      "bytes": 10185,
-      "sha256": "05f2bec1666a2b7d9762b6d282ddeac91d4f737124fefa387aed117bc11e0a6a"
+      "bytes": 10487,
+      "sha256": "c395759371837027d6cb26a4b03cdca9c475cbbd758a5a6e06008abbc06bd1ce"
     },
     "public/team-cover.svg": {
       "bytes": 3058,
@@ -232,8 +252,8 @@
       "sha256": "63c1e3fecdce967061ccad5c25a6916408507fe219699745de15bd776dd3f610"
     },
     "public/theme.js": {
-      "bytes": 4632,
-      "sha256": "d88909c9f3c62ff349d4d09c00ac7dd408a2ef9da70ec29bc0423489128862eb"
+      "bytes": 4840,
+      "sha256": "8898050f883efbcc92ff149978f2aa03f75eab8b7194aef5828621b2f7abf12b"
     },
     "public/topics.css": {
       "bytes": 6622,
@@ -248,8 +268,8 @@
       "sha256": "ac794b9a0bbcb6f789019397db1af6fb062b131816c6d8b662381941b870fb07"
     },
     "public/weekly-editor.js": {
-      "bytes": 11299,
-      "sha256": "53f3a0c9d769525810216f781e313afd6887a70f1e0df36e62aa00fff0f22fd7"
+      "bytes": 11605,
+      "sha256": "dba119d435d83997f48ab9752ff178759abb7d1b6d6af18a6c85a954e948a64a"
     },
     "public/weekly.css": {
       "bytes": 16043,
@@ -268,8 +288,8 @@
       "sha256": "ffea73867c0f0037ef62c776c189d3e55fb30d4bbadc0f9e24ca1f63baa60c8f"
     },
     "scripts/package-release.mjs": {
-      "bytes": 9359,
-      "sha256": "199411a459ec8913d56cc2c8cfb16443b17a98697e08c55e73318aa3d16355d7"
+      "bytes": 9375,
+      "sha256": "c8f587a85c7f08634f3f4d73f28eb7c3f01ac3d1ab60d1a352d18c993a8b4feb"
     },
     "scripts/seed-demo.mjs": {
       "bytes": 26950,
@@ -280,8 +300,8 @@
       "sha256": "ca0d203ac20c7be3e92052b19384cc64df70dba62c8138cf4f47e103bee74a31"
     },
     "src/admin.mjs": {
-      "bytes": 11198,
-      "sha256": "8ca1f2443d98121b898a0f5e5986c3f2555702d8c323bd63776fa738689ed5b4"
+      "bytes": 11581,
+      "sha256": "2f815d8bc8ba6ffb970989b57231ecb039c3f5204501ee3553f78d3f35c8e1f1"
     },
     "src/auth-abuse.mjs": {
       "bytes": 5503,
@@ -296,8 +316,8 @@
       "sha256": "3e230b768dc7310a26b9a02234d74e8a5f73048a74078ed01c2daadbc1d3c2b5"
     },
     "src/calendar.mjs": {
-      "bytes": 31573,
-      "sha256": "b6e2531a3f55c6a5292ccaa4b2b1d7f5229188add6695abbbd779278352aed8b"
+      "bytes": 32513,
+      "sha256": "6312f714ef3d7ed56504d46384c80b8d24fe249666376d6350ff3903c119e2fb"
     },
     "src/conference-feed.mjs": {
       "bytes": 9459,
@@ -331,13 +351,37 @@
       "bytes": 868,
       "sha256": "31be449bc564398d778aed114032c12d27fff9fe32d0bb27fcc69a5d3005e4df"
     },
+    "src/i18n.mjs": {
+      "bytes": 5874,
+      "sha256": "d68ae1cb6919bda053757a9e95495110984674a99823dccdb02aa3df1a6bbccb"
+    },
+    "src/locales/en-accounts.json": {
+      "bytes": 12444,
+      "sha256": "d851c2e6242e245a12eea662ba3073ec043be356bff644b4067f771db9bf6996"
+    },
+    "src/locales/en-client.json": {
+      "bytes": 2986,
+      "sha256": "39817b79dadf6ef3da1312bfe515ddbba474c0e2cca3c3f97eba5b04a1cbebd2"
+    },
+    "src/locales/en-core.json": {
+      "bytes": 30556,
+      "sha256": "6092c14b5fbb2b8824193346fd948dbd033cd46417cf43e55320056f53a689b6"
+    },
+    "src/locales/en-public.json": {
+      "bytes": 8110,
+      "sha256": "36303d9b559921b2c4ec004a6d2e9e02342655c4d03e264248a8c6e89d8d660f"
+    },
+    "src/locales/en-workspace.json": {
+      "bytes": 37160,
+      "sha256": "2671eda084d178dc323d1ad7f76bd2306a31a94a0308ec925fac85d4a0ee1bc6"
+    },
     "src/mail-settings.mjs": {
       "bytes": 4448,
       "sha256": "cd82e15bd2b09ae14021ad9cf6ad10b308b468264dead0a29843168361df532d"
     },
     "src/management-views.mjs": {
-      "bytes": 17830,
-      "sha256": "67372e7622fea1f409cc4b8be6c0b76b3c005abb7555f16456659bfa59cab92e"
+      "bytes": 18401,
+      "sha256": "96b5bbd586b18d1baf3957366ad0ad8e47297675b5fc2184bf2e6b2e6d30a639"
     },
     "src/management.mjs": {
       "bytes": 20977,
@@ -356,12 +400,12 @@
       "sha256": "b820aeef01735d9ab533a15a07d3c0df16e242d1e444af517ff3a8d34b8feb4d"
     },
     "src/portal-views.mjs": {
-      "bytes": 16686,
-      "sha256": "2ea5c8297954fb73aa833e0d09db8ca486978e39b69aa246921d6c6368a046ae"
+      "bytes": 17170,
+      "sha256": "16113c09407299d98d71947eda9fc1c86219403954afc3837f3ead4abcc5bdb2"
     },
     "src/portal.mjs": {
-      "bytes": 13075,
-      "sha256": "8cade978a57ea8c9266776f63903fabb634bd086de06cabf7ff3e5302e533de3"
+      "bytes": 13139,
+      "sha256": "f58361d3e1e1b74528f30280018efc876f4876b9787637ef269956f58134f3f8"
     },
     "src/reset-mailer.mjs": {
       "bytes": 5321,
@@ -372,12 +416,12 @@
       "sha256": "a7d198d51b3d1150b824ccbdfbec5894d84523cc76f5630cbc337a5d92ad048b"
     },
     "src/rich-text.mjs": {
-      "bytes": 5412,
-      "sha256": "f969979bd159b5c8677ee1d18aa0798b7ec488af0633c9a8bbafbdb3ae2b9c75"
+      "bytes": 5445,
+      "sha256": "b2796f75dcc106b0bf11d943391f644df5fe4fa48c8f7f5a508a6017f0b1eaf2"
     },
     "src/server.mjs": {
-      "bytes": 31991,
-      "sha256": "00d548333dfb6f5ebf8be32156a094b4f6bf91bc40607f83cddd2b0b97f14d74"
+      "bytes": 33174,
+      "sha256": "92a303b623671fbfede4da10b759944e3d48b10b2148a42c8cbaa1cfa73dc024"
     },
     "src/site-branding.mjs": {
       "bytes": 2075,
@@ -388,28 +432,28 @@
       "sha256": "12bae0f9879a065fac18cf28eb02c059de8ad67d70aa802e971e30f2bc812e94"
     },
     "src/student-desk.mjs": {
-      "bytes": 6472,
-      "sha256": "c74ae1d8410e39616f854174f03aa5ea15bd53e035dd0c2de374d672da9a0504"
+      "bytes": 6683,
+      "sha256": "734784f897701ecc69867925702a9cbad699e39f2c511dd24f95c8f39b7b9bed"
     },
     "src/student-site-views.mjs": {
-      "bytes": 10116,
-      "sha256": "bd872df6b3cb60aa102bfc7ac16a3fb3af6f5f44a2b882320737acc0433a286a"
+      "bytes": 10476,
+      "sha256": "03de2a85c85aae286ccac3bed5c6bb5bfd5c65844a8fe6a1e700188e7ec843c4"
     },
     "src/student-site.mjs": {
       "bytes": 7483,
       "sha256": "0080216d5cfcd19359d5b9274706a35edaab21461844147d885c626b8284644c"
     },
     "src/teacher-desk.mjs": {
-      "bytes": 11598,
-      "sha256": "9a491d95242525ab29a1ec1315e8b1e852a73414f45b8114db70687103475aa9"
+      "bytes": 11786,
+      "sha256": "69bea2cea77c5634cb8ecf27894203136779fb0ca1e4254948675260153a221c"
     },
     "src/theme-ui.mjs": {
-      "bytes": 2628,
-      "sha256": "d09f823b4c9156e88b0c49111982c5be709d0bea2fc1a32c33bc3775dee13bf8"
+      "bytes": 2786,
+      "sha256": "fb4b9b58a98b2ce2c7a4f925c511f1ffea581f79efd8dde60b4c4ca4246906ab"
     },
     "src/topics-views.mjs": {
-      "bytes": 18072,
-      "sha256": "cd682f269369abb911b76d025515aa2c29f49e2b151489514df899f8b26a9d82"
+      "bytes": 18371,
+      "sha256": "8860aa5f8a4b4bdbdfa4e6dc5925b1122030463cf3e648b86a07cee3b71b0874"
     },
     "src/topics.mjs": {
       "bytes": 34927,
@@ -424,24 +468,24 @@
       "sha256": "0f66ad830e4bf7d30665b335b1c1f2ea53013fe93cdb5dc38256327f87c87c83"
     },
     "src/views.mjs": {
-      "bytes": 41013,
-      "sha256": "12184deaf474d92879a5d225a18cab9456b2499c75ccc87cf7a3ba5b2347334e"
+      "bytes": 41501,
+      "sha256": "f54040e493a9241764197797b0fdb4a84c931137d1a3082ae0d34bc5541e6744"
     },
     "src/weekly-attachments.mjs": {
       "bytes": 16325,
       "sha256": "7482ca18c97ab2e6f4fbd5d2b3217bc0b637fe7dc764d50d256c9eaca78c4e31"
     },
     "src/weekly-views.mjs": {
-      "bytes": 25472,
-      "sha256": "8858ebfa95868206676628e02878bd37d973e752d83af5eea96cf40a36c969e0"
+      "bytes": 25875,
+      "sha256": "fddfbf050cd02baa5764b9c12fbcbae7a6a22a728e0be5ca47643baed16c96db"
     },
     "src/weekly.mjs": {
       "bytes": 24726,
       "sha256": "2e0b4736394e7bb0391d6236b3af1f0ae79e0eb59fdece2d069451b44ac6e62a"
     },
     "src/workspace-ui.mjs": {
-      "bytes": 7281,
-      "sha256": "dd2e1798662a282d8837c280092eca965056262bae4213d455a364eeb3207b07"
+      "bytes": 7346,
+      "sha256": "11d7947b0c69949b6eb121e704d04889fb71f916644ef8804b22705eca8c61ba"
     },
     "test/admin-accounts.test.mjs": {
       "bytes": 18971,
@@ -470,6 +514,14 @@
     "test/demo-seed.test.mjs": {
       "bytes": 6383,
       "sha256": "b8a4e4a7eec0088b03f4c037eabf4331b1176192b172c30d2ee9e5db3ffd6631"
+    },
+    "test/i18n-client.test.mjs": {
+      "bytes": 5934,
+      "sha256": "216361ea964c00489d157313223e9a5a2e32e08782c18ba0830f751e33e03c38"
+    },
+    "test/i18n.test.mjs": {
+      "bytes": 15671,
+      "sha256": "ce7a64098fc4833d6c0dd9b401f72435459dda660d0092e48752432be2611092"
     },
     "test/package-release.test.mjs": {
       "bytes": 6540,

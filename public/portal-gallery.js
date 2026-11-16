@@ -1,3 +1,4 @@
+const translatePortalGallery = (message, params = {}) => window.LabI18n?.t(message, params) ?? message.replace(/\{(\w+)\}/g, (match, key) => Object.hasOwn(params, key) ? String(params[key]) : match);
 const gallery = document.querySelector('[data-portal-gallery]');
 
 if (gallery) {
@@ -12,7 +13,7 @@ if (gallery) {
     function updateStatus() {
       count.textContent = (active + 1) + ' / ' + slides.length;
       const caption = slides[active].querySelector('[data-gallery-caption]').textContent;
-      status.textContent = '第 ' + (active + 1) + ' 张，共 ' + slides.length + ' 张。' + caption;
+      status.textContent = translatePortalGallery('第 {slide} 张，共 {total} 张。', { slide: active + 1, total: slides.length }) + ' ' + caption;
     }
 
     controls.querySelectorAll('[data-gallery-step]').forEach(button => {

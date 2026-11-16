@@ -1,3 +1,4 @@
+import { t, h, locale, languageControl } from './i18n.mjs';
 import { workspaceFrame } from './workspace-ui.mjs';
 import { themeHead, themeControl } from './theme-ui.mjs';
 
@@ -32,12 +33,12 @@ const reviewStatuses = {
   rejected: '审核未通过',
 };
 
-const dateFormat = new Intl.DateTimeFormat('zh-CN', {
+function dateFormat() { return new Intl.DateTimeFormat(locale(), {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
   timeZone: 'Asia/Shanghai',
-});
+}); }
 
 export function escapeHtml(value) {
   return String(value ?? '')
@@ -49,14 +50,14 @@ export function escapeHtml(value) {
 }
 
 export function token(state) {
-  return `<input type="hidden" name="csrf" value="${escapeHtml(state.csrf)}">`;
+  return h`<input type="hidden" name="csrf" value="${escapeHtml(state.csrf)}">`;
 }
 
 function dateMarkup(value) {
   if (!value) return '';
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return '';
-  return `<time datetime="${date.toISOString()}">${dateFormat.format(date)}</time>`;
+  return h`<time datetime="${date.toISOString()}">${dateFormat().format(date)}</time>`;
 }
 
 function accountPath(user) {
@@ -68,24 +69,24 @@ export function layout(state, title, content, { accountEntry = false } = {}) {
   const awaitingApproval = ['student', 'teacher'].includes(user?.role) && user.reviewStatus !== 'approved';
   const inWorkspace = user && !awaitingApproval && /^\/(?:admin|teacher|student)(?:\/|$)/.test(state.path ?? '');
   const headingName = inWorkspace ? '实验室工作台' : (state.siteName ?? siteName);
-  const inner = `
-    ${error ? `<p class="flash flash--error" role="alert">${escapeHtml(error)}</p>` : ''}
-    ${notice ? `<p class="flash flash--notice" role="status">${escapeHtml(notice)}</p>` : ''}
+  const inner = h`
+    ${error ? h`<p class="flash flash--error" role="alert">${escapeHtml(t(error))}</p>` : ''}
+    ${notice ? h`<p class="flash flash--notice" role="status">${escapeHtml(t(notice))}</p>` : ''}
     ${content}`;
   const accountLinks = user
-    ? `${awaitingApproval ? (state.path === accountPath(user) ? '' : `<a class="button button--plain" href="${accountPath(user)}">注册进度</a>`)
-      : `<a class="button button--plain" href="${accountPath(user)}">工作台</a>`}
+    ? h`${awaitingApproval ? (state.path === accountPath(user) ? '' : h`<a class="button button--plain" href="${accountPath(user)}">注册进度</a>`)
+      : h`<a class="button button--plain" href="${accountPath(user)}">工作台</a>`}
        <form action="/logout" method="post">${token(state)}
          <button class="button button--quiet" type="submit">退出登录</button>
        </form>`
-    : `<a class="button button--primary" href="/login">登录</a>`;
+    : h`<a class="button button--primary" href="/login">登录</a>`;
 
-  return `<!doctype html>
-<html lang="zh-CN">
+  return h`<!doctype html>
+<html lang="${locale()}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(title ? `${title} · ${headingName}` : headingName)}</title>
+  <title>${escapeHtml(title ? h`${t(title)} · ${t(headingName)}` : t(headingName))}</title>
   <link rel="icon" href="/lab-logo.png">
   <link rel="stylesheet" href="/app.css">
   <link rel="stylesheet" href="/topics.css">
@@ -105,8 +106,8 @@ export function layout(state, title, content, { accountEntry = false } = {}) {
   <a class="skip-link" href="#${inWorkspace ? 'workspace-content' : 'content'}">跳到正文</a>
   <header class="site-header">
     <div class="frame masthead">
-      <a href="/" class="brand"><img class="brand-mark" src="/lab-logo.png" width="40" height="40" alt="">${escapeHtml(headingName)}</a>
-      <nav aria-label="账号">${themeControl()}${accountLinks}</nav>
+      <a href="/" class="brand"><img class="brand-mark" src="/lab-logo.png" width="40" height="40" alt="">${escapeHtml(t(headingName))}</a>
+      <nav aria-label="账号">${themeControl()}${languageControl()}${accountLinks}</nav>
     </div>
   </header>
   <main class="frame main" id="content">
@@ -117,26 +118,26 @@ export function layout(state, title, content, { accountEntry = false } = {}) {
 }
 
 function sectionHeading(title, note = '') {
-  return `<header class="page-heading">
-    <h1>${title}</h1>
-    ${note ? `<p>${note}</p>` : ''}
+  return h`<header class="page-heading">
+    <h1>${t(title)}</h1>
+    ${note ? h`<p>${t(note)}</p>` : ''}
   </header>`;
 }
 
 function selectOptions(options, current) {
   return Object.entries(options).map(([value, label]) =>
-    `<option value="${value}"${current === value ? ' selected' : ''}>${label}</option>`
+    h`<option value="${value}"${current === value ? ' selected' : ''}>${t(label)}</option>`
   ).join('');
 }
 
 function accountPage(state, title, content, type) {
-  return layout(state, title, `
+  return layout(state, title, h`
     <div class="account-shell account-shell--${type}">
       <div class="account-identity">
         <div class="account-art" aria-hidden="true">
           <img src="/lab-logo.png" width="112" height="112" alt="">
         </div>
-        ${state.centerName ? `<p>${escapeHtml(state.centerName)}</p>` : ''}
+        ${state.centerName ? h`<p>${escapeHtml(t(state.centerName))}</p>` : ''}
       </div>
       <section class="account-panel">${content}</section>
     </div>`, { accountEntry: true });
@@ -144,13 +145,13 @@ function accountPage(state, title, content, type) {
 
 function loginEntryPage(state, { title, note, content, headingId = 'login-title' }) {
   const name = state.siteName || siteName;
-  return `<!doctype html>
-<html lang="zh-CN">
+  return h`<!doctype html>
+<html lang="${locale()}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3f8f6">
-  <title>${escapeHtml(title)} · ${escapeHtml(name)}</title>
+  <title>${escapeHtml(t(title))} · ${escapeHtml(t(name))}</title>
   <link rel="icon" href="/lab-logo.png">
   <link rel="stylesheet" href="/login-entry.css?v=liquid-flow-20261111">
   <script src="/login.js?v=liquid-flow-20261111" defer></script>
@@ -158,7 +159,7 @@ function loginEntryPage(state, { title, note, content, headingId = 'login-title'
 </head>
 <body class="login-entry-page">
   <a class="skip-link" href="#content">跳到表单</a>
-  <div class="login-theme-control">${themeControl()}</div>
+  <div class="login-theme-control">${themeControl()}${languageControl()}</div>
   <button class="login-motion-toggle" type="button" data-background-toggle aria-controls="login-ambient"
     aria-label="播放背景动效" aria-pressed="false" hidden>
     <svg data-background-icon="pause" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -172,19 +173,19 @@ function loginEntryPage(state, { title, note, content, headingId = 'login-title'
     <div class="login-entry-wrap">
       <header class="login-entry-brand">
         <img src="/lab-logo.png" width="64" height="64" alt="">
-        <h1>${escapeHtml(name)}</h1>
+        <h1>${escapeHtml(t(name))}</h1>
         <p>成员工作台</p>
       </header>
       <section class="login-entry-card" aria-labelledby="${headingId}">
         <header class="login-entry-heading">
-          <h2 id="${headingId}">${escapeHtml(title)}</h2>
-          ${note ? `<p>${escapeHtml(note)}</p>` : ''}
+          <h2 id="${headingId}">${escapeHtml(t(title))}</h2>
+          ${note ? h`<p>${escapeHtml(t(note))}</p>` : ''}
         </header>
-        ${state.error ? `<p class="login-entry-error" role="alert">${escapeHtml(state.error)}</p>` : ''}
-        ${state.notice ? `<p class="login-entry-notice" role="status">${escapeHtml(state.notice)}</p>` : ''}
+        ${state.error ? h`<p class="login-entry-error" role="alert">${escapeHtml(t(state.error))}</p>` : ''}
+        ${state.notice ? h`<p class="login-entry-notice" role="status">${escapeHtml(t(state.notice))}</p>` : ''}
         ${content}
       </section>
-      ${state.centerName ? `<footer class="login-entry-footer">${escapeHtml(state.centerName)}</footer>` : ''}
+      ${state.centerName ? h`<footer class="login-entry-footer">${escapeHtml(t(state.centerName))}</footer>` : ''}
     </div>
   </main>
 </body>
@@ -192,7 +193,7 @@ function loginEntryPage(state, { title, note, content, headingId = 'login-title'
 }
 
 function passwordToggle(inputId, buttonId) {
-  return `<button${buttonId ? ` id="${buttonId}"` : ''} class="password-toggle" type="button"
+  return h`<button${buttonId ? h` id="${buttonId}"` : ''} class="password-toggle" type="button"
     data-password-toggle aria-controls="${inputId}" aria-label="显示密码" title="显示密码" aria-pressed="false" hidden>
     <svg data-password-icon="show" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -208,7 +209,7 @@ function passwordToggle(inputId, buttonId) {
 export function loginPage(state, values = {}) {
   return loginEntryPage(state, {
     title: '登录',
-    content: `<form class="login-entry-form" method="post" action="/login">
+    content: h`<form class="login-entry-form" method="post" action="/login">
       ${token(state)}
       <label>邮箱或手机号
         <input name="identifier" autocomplete="username" spellcheck="false" autocapitalize="none"
@@ -232,9 +233,9 @@ export function loginPage(state, values = {}) {
 
 export function forgotPasswordPage(state, values = {}) {
   const content = state.recoverySent
-    ? '<p class="login-entry-notice" role="status">如果该邮箱已绑定账号，你会收到重置邮件。请检查收件箱和垃圾邮件。</p>'
+    ? h`<p class="login-entry-notice" role="status">如果该邮箱已绑定账号，你会收到重置邮件。请检查收件箱和垃圾邮件。</p>`
     : state.recoveryConfigured
-      ? `<form class="login-entry-form" method="post" action="/forgot-password">
+      ? h`<form class="login-entry-form" method="post" action="/forgot-password">
           ${token(state)}
           <label>账号绑定的邮箱
             <input name="email" type="email" autocomplete="email" maxlength="254" spellcheck="false" autocapitalize="none"
@@ -242,17 +243,17 @@ export function forgotPasswordPage(state, values = {}) {
           </label>
           <button class="login-entry-submit" type="submit">发送重置邮件</button>
         </form>`
-      : '<p class="login-entry-notice" role="status">邮件找回尚未启用，请联系管理员处理。</p>';
+      : h`<p class="login-entry-notice" role="status">邮件找回尚未启用，请联系管理员处理。</p>`;
   return loginEntryPage(state, {
     title: '忘记密码', headingId: 'forgot-password-title',
     note: state.recoverySent ? '' : '重置链接将发送到账号绑定的邮箱。',
-    content: `${content}<p class="login-entry-back"><a href="/login">返回登录</a></p>`
+    content: h`${content}<p class="login-entry-back"><a href="/login">返回登录</a></p>`
   });
 }
 
 export function resetPasswordPage(state, values = {}) {
   const content = state.resetValid
-    ? `<form class="login-entry-form" method="post" action="/reset-password">
+    ? h`<form class="login-entry-form" method="post" action="/reset-password">
         ${token(state)}
         <input type="hidden" name="resetToken" value="${escapeHtml(values.resetToken)}">
         <div>
@@ -274,12 +275,12 @@ export function resetPasswordPage(state, values = {}) {
         </div>
         <button class="login-entry-submit" type="submit">设置新密码</button>
       </form>`
-    : `<p class="login-entry-notice" role="status">链接已失效或已使用，请重新申请。</p>
+    : h`<p class="login-entry-notice" role="status">链接已失效或已使用，请重新申请。</p>
       <p class="login-entry-back"><a href="/forgot-password">重新申请重置邮件</a></p>`;
   return loginEntryPage(state, {
     title: '设置新密码', headingId: 'reset-password-title',
     note: state.resetValid ? '设置完成后，请使用新密码登录。' : '',
-    content: `${content}<p class="login-entry-back"><a href="/login">返回登录</a></p>`
+    content: h`${content}<p class="login-entry-back"><a href="/login">返回登录</a></p>`
   });
 }
 
@@ -288,14 +289,14 @@ export function mailSettingsPage(state, values = {}) {
   const passwordNote = values.hasPassword
     ? '授权码已保存，保存后不再显示。留空保留原授权码，重新填写可替换。'
     : '填写邮箱的 SMTP 授权码或专用密码。';
-  return layout(state, '邮件找回设置', `
+  return layout(state, '邮件找回设置', h`
     <section class="panel form-panel">
       ${sectionHeading('邮件找回设置', '重置邮件发送到账号已绑定的邮箱。')}
       <div class="stack">
-        <p class="field-note" role="status">${configured
+        <p class="field-note" role="status">${t(configured
           ? '邮件找回已启用。'
-          : '邮件找回尚未启用，请先填写发件邮箱配置。'}</p>
-        ${values.configurationError ? `<p class="flash flash--error" role="alert">${escapeHtml(values.configurationError)}</p>` : ''}
+          : '邮件找回尚未启用，请先填写发件邮箱配置。')}</p>
+        ${values.configurationError ? h`<p class="flash flash--error" role="alert">${escapeHtml(t(values.configurationError))}</p>` : ''}
         <form class="stack" method="post" action="/admin/mail">
           ${token(state)}
           <div class="form-grid">
@@ -310,11 +311,11 @@ export function mailSettingsPage(state, values = {}) {
               <input name="smtpUser" type="email" maxlength="254" autocomplete="off" spellcheck="false" autocapitalize="none"
                 value="${escapeHtml(values.smtpUser)}" required>
             </label>
-            <label class="span-full"><span>邮箱授权码或专用密码${values.hasPassword ? ' <span class="badge badge--approved">已保存</span>' : ''}</span>
+            <label class="span-full"><span>邮箱授权码或专用密码${values.hasPassword ? h` <span class="badge badge--approved">已保存</span>` : ''}</span>
               <input name="smtpPassword" type="password" autocomplete="new-password" maxlength="1024"
-                placeholder="${values.hasPassword ? '已保存，留空保留' : '请输入邮箱授权码'}"
+                placeholder="${t(values.hasPassword ? '已保存，留空保留' : '请输入邮箱授权码')}"
                 aria-describedby="mail-password-note"${values.hasPassword ? '' : ' required'}>
-              <span class="field-note" id="mail-password-note">${passwordNote}</span>
+              <span class="field-note" id="mail-password-note">${t(passwordNote)}</span>
             </label>
             <label class="span-full">发件地址（选填）
               <input name="smtpFrom" type="email" maxlength="254" autocomplete="off" spellcheck="false" autocapitalize="none"
@@ -332,7 +333,7 @@ export function mailSettingsPage(state, values = {}) {
             <a class="button button--quiet" href="/admin">返回工作台</a>
           </div>
         </form>
-        ${configured ? `<form method="post" action="/admin/mail/disable">
+        ${configured ? h`<form method="post" action="/admin/mail/disable">
           ${token(state)}<button class="button button--plain" type="submit">停用邮件找回</button>
         </form>` : ''}
       </div>
@@ -341,7 +342,7 @@ export function mailSettingsPage(state, values = {}) {
 
 function applicationFields(values) {
   const selectedActivities = Array.isArray(values.activities) ? values.activities : [values.activities];
-  return `
+  return h`
     <div class="form-grid application-fields">
       <label>姓名
         <input name="name" autocomplete="name" maxlength="80" value="${escapeHtml(values.name)}" required>
@@ -378,25 +379,25 @@ function applicationFields(values) {
       <fieldset class="activity-field span-full">
         <legend>参与事项 <span class="field-note">可多选</span></legend>
         <div class="choices">${activities.map((activity) =>
-          `<label><input type="checkbox" name="activities" value="${activity}"${selectedActivities.includes(activity) ? ' checked' : ''}>
-            ${activity}</label>`
+          h`<label><input type="checkbox" name="activities" value="${activity}"${selectedActivities.includes(activity) ? ' checked' : ''}>
+            ${t(activity)}</label>`
         ).join('')}</div>
       </fieldset>
     </div>`;
 }
 
 export function registerPage(state, values = {}) {
-  return accountPage(state, '学生注册', `
+  return accountPage(state, '学生注册', h`
       ${sectionHeading('学生注册', '提交申请后，可登录查看教师的审核结果。')}
       <form class="stack" action="/register" method="post">
         ${token(state)}
         ${applicationFields(values)}
         <label>主指导教师
           <select name="primaryTeacherId" required>
-            ${(state.teachers?.length ?? 0) === 1 ? '' : '<option value="">请选择主指导教师</option>'}
-            ${(state.teachers ?? []).map(teacher => `<option value="${teacher.id}"${String(values.primaryTeacherId) === String(teacher.id) ? ' selected' : ''}>${escapeHtml(teacher.name)}</option>`).join('')}
+            ${(state.teachers?.length ?? 0) === 1 ? '' : h`<option value="">请选择主指导教师</option>`}
+            ${(state.teachers ?? []).map(teacher => h`<option value="${teacher.id}"${String(values.primaryTeacherId) === String(teacher.id) ? ' selected' : ''}>${escapeHtml(teacher.name)}</option>`).join('')}
           </select>
-          <span class="field-note">副指导教师由管理员分配。${state.teachers?.length ? '' : '当前暂无可选教师，请联系管理员。'}</span>
+          <span class="field-note">副指导教师由管理员分配。${state.teachers?.length ? '' : t('当前暂无可选教师，请联系管理员。')}</span>
         </label>
         <label>登录密码
           <input name="password" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
@@ -409,7 +410,7 @@ export function registerPage(state, values = {}) {
 }
 
 export function teacherRegisterPage(state, values = {}) {
-  return accountPage(state, '教师注册', `
+  return accountPage(state, '教师注册', h`
     ${sectionHeading('教师注册', '管理员审核通过后，即可进入教师工作台。')}
     <form class="stack" action="/register/teacher" method="post">
       ${token(state)}
@@ -425,41 +426,41 @@ export function teacherRegisterPage(state, values = {}) {
 
 export function teacherPendingPage(state) {
   const rejected = state.user.reviewStatus === 'rejected';
-  return layout(state, '教师注册进度', `<section class="panel form-panel">
+  return layout(state, '教师注册进度', h`<section class="panel form-panel">
     ${sectionHeading(rejected ? '教师申请未通过' : '请等待管理员审核')}
-    <p>${rejected ? '请联系管理员确认申请资料。' : '你的教师注册申请已提交，审核通过后即可使用工作台。'}</p>
-    ${state.user.reviewReason ? `<p>审核说明：${escapeHtml(state.user.reviewReason)}</p>` : ''}
+    <p>${t(rejected ? '请联系管理员确认申请资料。' : '你的教师注册申请已提交，审核通过后即可使用工作台。')}</p>
+    ${state.user.reviewReason ? h`<p>审核说明：${escapeHtml(state.user.reviewReason)}</p>` : ''}
     <p class="field-note">${escapeHtml(state.user.name)} · ${escapeHtml(state.user.email)}</p>
   </section>`);
 }
 
 function statusBadge(status) {
   const tone = status === 'approved' ? 'approved' : status === 'rejected' ? 'rejected' : 'pending';
-  return `<span class="badge badge--${tone}">${escapeHtml(reviewStatuses[status] ?? '')}</span>`;
+  return h`<span class="badge badge--${tone}">${escapeHtml(t(reviewStatuses[status] ?? ''))}</span>`;
 }
 
 function studentFacts(student) {
   const fields = [
-    ['学习层次', levels[student.level]],
-    ['学生状态', studentStatuses[student.studentStatus]],
+    ['学习层次', t(levels[student.level])],
+    ['学生状态', t(studentStatuses[student.studentStatus])],
     ['专业', student.major],
     ['学号', student.studentNumber],
     ['主指导教师', student.primaryTeacherName],
-    ['副指导教师', student.secondaryTeacherName || '未设置'],
-    ['指导关系', relationships[student.relationship]],
+    ['副指导教师', student.secondaryTeacherName || t('未设置')],
+    ['指导关系', t(relationships[student.relationship])],
     ['导师姓名', student.advisor],
-    ['参与事项', Array.isArray(student.activities) ? student.activities.join('、') : student.activities],
+    ['参与事项', Array.isArray(student.activities) ? student.activities.map(item => t(item)).join(locale() === 'en' ? ', ' : '、') : t(student.activities)],
     ['邮箱', student.email],
     ['手机号', student.phone],
     ['生日', student.birthday],
   ];
-  return `<dl class="facts">${fields.map(([label, value]) =>
-    `<div><dt>${label}</dt><dd>${escapeHtml(value || '未填写')}</dd></div>`
+  return h`<dl class="facts">${fields.map(([label, value]) =>
+    h`<div><dt>${t(label)}</dt><dd>${escapeHtml(value || t('未填写'))}</dd></div>`
   ).join('')}</dl>`;
 }
 
 function reviewForm(state, student) {
-  return `<form class="record-form" action="/teacher/students/${encodeURIComponent(student.id)}/review" method="post">
+  return h`<form class="record-form" action="/teacher/students/${encodeURIComponent(student.id)}/review" method="post">
     ${token(state)}
     <label>审核说明
       <input name="reason" maxlength="500" placeholder="可填写审核意见">
@@ -472,7 +473,7 @@ function reviewForm(state, student) {
 }
 
 function studentStatusForm(state, student) {
-  return `<form class="record-form record-form--inline" action="/teacher/students/${encodeURIComponent(student.id)}/status" method="post">
+  return h`<form class="record-form record-form--inline" action="/teacher/students/${encodeURIComponent(student.id)}/status" method="post">
     ${token(state)}
     <label>调整学生状态
       <select name="studentStatus">${selectOptions(studentStatuses, student.studentStatus)}</select>
@@ -486,13 +487,13 @@ function studentStatusForm(state, student) {
 }
 
 function studentRecord(state, student) {
-  const initial = Array.from(student.name.trim())[0] || '学';
-  return `<li class="record desk-student" data-student-id="${escapeHtml(student.id)}" data-review-status="${escapeHtml(student.reviewStatus)}">
+  const initial = Array.from(student.name.trim())[0] || t('学');
+  return h`<li class="record desk-student" data-student-id="${escapeHtml(student.id)}" data-review-status="${escapeHtml(student.reviewStatus)}">
     <header class="record-head">
       <div class="desk-student-identity">
         <span class="desk-student-avatar" aria-hidden="true">${escapeHtml(initial)}</span>
         <div><h3>${escapeHtml(student.name)}</h3>
-          <p class="desk-student-meta">${escapeHtml(levels[student.level] ?? '')}${student.major ? ' / ' + escapeHtml(student.major) : ''}</p></div>
+          <p class="desk-student-meta">${escapeHtml(t(levels[student.level] ?? ''))}${student.major ? ' / ' + escapeHtml(student.major) : ''}</p></div>
       </div>
       ${statusBadge(student.reviewStatus)}
     </header>
@@ -501,7 +502,7 @@ function studentRecord(state, student) {
       ${studentFacts(student)}
       ${profileReviewChanges(state.profileChanges?.get(student.id))}
       ${state.photoOwners?.has(student.id) ? photoMarkup(student.id) : ''}
-      ${student.reviewReason ? `<p class="review-note">审核说明：${escapeHtml(student.reviewReason)}</p>` : ''}
+      ${student.reviewReason ? h`<p class="review-note">审核说明：${escapeHtml(student.reviewReason)}</p>` : ''}
       ${student.reviewStatus === 'pending' ? reviewForm(state, student) : ''}
       ${student.reviewStatus === 'approved' ? studentStatusForm(state, student) : ''}
     </details>
@@ -513,26 +514,26 @@ function profileReviewChanges(change) {
   const labels = { name: '姓名', email: '邮箱', phone: '手机号', level: '学习层次', studentStatus: '学生状态',
     studentNumber: '学号', major: '专业', relationship: '指导关系', advisor: '导师姓名', activities: '参与事项' };
   const choices = { level: levels, studentStatus: studentStatuses, relationship: relationships };
-  const display = (key, value) => escapeHtml((Array.isArray(value) ? value.join('、') : choices[key]?.[value] ?? value) || '未填写');
+  const display = (key, value) => escapeHtml((Array.isArray(value) ? value.map(item => t(item)).join(locale() === 'en' ? ', ' : '、') : choices[key] ? t(choices[key][value] ?? value) : value) || t('未填写'));
   const changed = Object.keys(labels).filter(key => JSON.stringify(change.previous[key]) !== JSON.stringify(change.next[key]));
   if (!changed.length) return '';
-  return `<details class="profile-review-changes" open><summary>本次资料修改</summary>
-    <ul>${changed.map(key => `<li><strong>${labels[key]}</strong><p>修改前：${display(key, change.previous[key])}<br>修改后：${display(key, change.next[key])}</p></li>`).join('')}</ul></details>`;
+  return h`<details class="profile-review-changes" open><summary>本次资料修改</summary>
+    <ul>${changed.map(key => h`<li><strong>${t(labels[key])}</strong><p>修改前：${display(key, change.previous[key])}<br>修改后：${display(key, change.next[key])}</p></li>`).join('')}</ul></details>`;
 }
 
 function teacherNewsList(state, articles) {
-  if (!articles.length) return '<p class="empty">暂无新闻。</p>';
-  return `<ul class="editor-list">${articles.map((article) => {
+  if (!articles.length) return h`<p class="empty">暂无新闻。</p>`;
+  return h`<ul class="editor-list">${articles.map((article) => {
     const id = encodeURIComponent(article.id);
-    return `<li class="editor-row">
+    return h`<li class="editor-row">
       <div class="editor-title">
         ${article.visibility === 'draft'
-          ? `<a href="/teacher/news/${id}/edit">${escapeHtml(article.title)}</a>`
-          : `<a href="/news/${id}">${escapeHtml(article.title)}</a>`}
+          ? h`<a href="/teacher/news/${id}/edit">${escapeHtml(article.title)}</a>`
+          : h`<a href="/news/${id}">${escapeHtml(article.title)}</a>`}
         <div class="article-meta">
-          <span class="badge">${escapeHtml(categories[article.category] ?? '')}</span>
+          <span class="badge">${escapeHtml(t(categories[article.category] ?? ''))}</span>
           ${article.eventDate ? escapeHtml(article.eventDate) : dateMarkup(article.createdAt)}
-          <span class="badge">${article.visibility === 'draft' ? '草稿' : '访客可见'}</span>
+          <span class="badge">${t(article.visibility === 'draft' ? '草稿' : '访客可见')}</span>
         </div>
       </div>
       <div class="actions">
@@ -558,9 +559,9 @@ const studentFilters = [
 ];
 
 function filterForm(query) {
-  return `<form action="/teacher#students-heading" method="get" class="record-form desk-filter-form">
+  return h`<form action="/teacher#students-heading" method="get" class="record-form desk-filter-form">
     <label>姓名<input name="name" type="search" value="${escapeHtml(query?.get('name'))}"></label>
-    ${studentFilters.map(([key, label, options]) => `<label>${label}
+    ${studentFilters.map(([key, label, options]) => h`<label>${t(label)}
       <select name="${key}"><option value="">全部</option>${selectOptions(options, query?.get(key))}</select></label>`).join('')}
     <div class="actions desk-filter-actions"><button class="button button--primary" type="submit">筛选</button>
       <a class="button button--quiet" href="/teacher#students-heading">清除筛选</a></div>
@@ -576,22 +577,22 @@ export function teacherPage(state, students, articles, query) {
       const value = query?.get(key);
       return !value || (key === 'activity' ? student.activities.includes(value) : student[key] === value);
     })).sort((left, right) => Number(right.reviewStatus === 'pending') - Number(left.reviewStatus === 'pending'));
-  return layout(state, '教师工作台', `
+  return layout(state, '教师工作台', h`
     ${state.desk ?? sectionHeading('教师工作台')}
-    ${state.calendarContent ? `<div class="home-calendar">${state.calendarContent}</div>` : ''}
+    ${state.calendarContent ? h`<div class="home-calendar">${state.calendarContent}</div>` : ''}
     <div class="dashboard-grid desk-dashboard">
       <section class="panel dashboard-section desk-panel" aria-labelledby="students-heading">
         <header class="panel-heading">
           <h2 id="students-heading">学生管理</h2>
-          <span class="badge badge--pending">${pendingCount} 人待审核</span>
+          <span class="badge badge--pending">${t('{count} 人待审核', { count: pendingCount })}</span>
         </header>
         <details class="desk-filters"${filtering ? ' open' : ''}><summary>筛选学生</summary>${filterForm(query)}</details>
         ${visibleStudents.length
-          ? `<p class="field-note desk-students-help">待审核学生优先显示，可在名单内滚动查看。</p>
+          ? h`<p class="field-note desk-students-help">待审核学生优先显示，可在名单内滚动查看。</p>
             <div class="desk-students-scroll" role="region" aria-label="学生管理名单" tabindex="0">
               <ul class="record-list">${visibleStudents.map((student) => studentRecord(state, student)).join('')}</ul>
             </div>`
-          : `<p class="empty">${students.length ? '没有符合条件的学生。' : '暂无学生申请。'}</p>`}
+          : h`<p class="empty">${t(students.length ? '没有符合条件的学生。' : '暂无学生申请。')}</p>`}
       </section>
       <section class="panel dashboard-section desk-panel" aria-labelledby="news-heading">
         <header class="panel-heading">
@@ -605,7 +606,7 @@ export function teacherPage(state, students, articles, query) {
 }
 
 function profileForm(state, values) {
-  return `<section class="panel profile-panel" aria-labelledby="profile-heading">
+  return h`<section class="panel profile-panel" aria-labelledby="profile-heading">
     <header class="panel-heading">
       <h2 id="profile-heading">修改注册资料</h2>
     </header>
@@ -620,7 +621,7 @@ function profileForm(state, values) {
 }
 
 function birthdayForm(state, values) {
-  return `<section class="panel profile-panel" aria-labelledby="birthday-heading">
+  return h`<section class="panel profile-panel" aria-labelledby="birthday-heading">
     <h2 id="birthday-heading">生日</h2>
     <p class="field-note">修改生日无需重新审核。</p>
     <form class="stack" action="/student/profile/birthday" method="post">
@@ -632,11 +633,11 @@ function birthdayForm(state, values) {
 }
 
 function photoMarkup(studentId, portrait = false) {
-  return `<img class="student-photo${portrait ? ' student-photo--portrait' : ''}" src="/student/photo/${studentId}" alt="学生生活照"${portrait ? ' width="96" height="120"' : ' loading="lazy"'}>`;
+  return h`<img class="student-photo${portrait ? ' student-photo--portrait' : ''}" src="/student/photo/${studentId}" alt="学生生活照"${portrait ? ' width="96" height="120"' : ' loading="lazy"'}>`;
 }
 
 function photoForm(state) {
-  return `<section class="panel profile-panel profile-panel--photo" aria-labelledby="photo-heading">
+  return h`<section class="panel profile-panel profile-panel--photo" aria-labelledby="photo-heading">
     <h2 id="photo-heading">生活照</h2>
     ${state.hasPhoto ? photoMarkup(state.user.id) : ''}
     <form class="stack" method="post" action="/student/photo" enctype="multipart/form-data">
@@ -645,7 +646,7 @@ function photoForm(state) {
         <span class="field-note">保存后显示在个人信息和导出的简历中。支持 JPG、PNG，最大 2 MB。</span></label>
       <button class="button button--primary">保存生活照</button>
     </form>
-    ${state.hasPhoto ? `<form class="profile-photo-remove" method="post" action="/student/photo/remove">
+    ${state.hasPhoto ? h`<form class="profile-photo-remove" method="post" action="/student/photo/remove">
       ${token(state)}<button class="button button--plain">移除生活照</button></form>` : ''}
   </section>`;
 }
@@ -653,7 +654,7 @@ function photoForm(state) {
 export function studentProfilePage(state, values = {}) {
   const student = state.user;
   const canEdit = student.reviewStatus === 'approved' && student.studentStatus !== 'graduated';
-  return layout(state, '个人信息', `
+  return layout(state, '个人信息', h`
     ${sectionHeading('个人信息', canEdit ? '查看本人档案，修改注册资料、生日和生活照。' : '查看本人档案。')}
     <div class="student-profile-grid${canEdit ? ' student-profile-grid--editable' : ''}">
       <section class="panel profile-panel" aria-labelledby="student-name">
@@ -665,9 +666,9 @@ export function studentProfilePage(state, values = {}) {
           </header>
         </div>
         ${studentFacts(student)}
-        ${student.reviewStatus === 'rejected' ? '<a class="button button--plain" href="/student">修改注册申请</a>' : ''}
+        ${student.reviewStatus === 'rejected' ? h`<a class="button button--plain" href="/student">修改注册申请</a>` : ''}
       </section>
-      ${canEdit ? `<div class="profile-editor-column">${profileForm(state, { ...student, ...values })
+      ${canEdit ? h`<div class="profile-editor-column">${profileForm(state, { ...student, ...values })
         + birthdayForm(state, { ...student, ...values }) + photoForm(state)}</div>` : ''}
     </div>`);
 }
@@ -675,9 +676,9 @@ export function studentProfilePage(state, values = {}) {
 function studentContent(state, values) {
   const student = state.user;
   if (student.reviewStatus === 'rejected') {
-    return `<section class="panel form-panel application-revision">
+    return h`<section class="panel form-panel application-revision">
       ${sectionHeading('修改注册申请', '本次申请未通过。修改资料后可以重新提交。')}
-      ${student.reviewReason ? `<p class="review-note">审核说明：${escapeHtml(student.reviewReason)}</p>` : ''}
+      ${student.reviewReason ? h`<p class="review-note">审核说明：${escapeHtml(student.reviewReason)}</p>` : ''}
       <form class="stack" action="/student/reapply" method="post">
         ${token(state)}
         ${applicationFields({ ...student, ...values })}
@@ -692,10 +693,10 @@ function studentContent(state, values) {
     : graduated ? '你的账号已设为毕业生，可从「个人信息」查看档案。' : '';
   const features = state.featureContent ?? '';
   const dynamics = state.desk ? '' : state.dynamics ?? '';
-  return `
+  return h`
     ${state.desk ?? sectionHeading(pending ? '注册进度' : '学生工作台', note)}
-    ${state.calendarContent ? `<div class="home-calendar">${state.calendarContent}</div>` : ''}
-    ${features || dynamics ? `<div class="student-workspace"><div class="student-main">${features}</div>${dynamics}</div>` : ''}`;
+    ${state.calendarContent ? h`<div class="home-calendar">${state.calendarContent}</div>` : ''}
+    ${features || dynamics ? h`<div class="student-workspace"><div class="student-main">${features}</div>${dynamics}</div>` : ''}`;
 }
 
 export function studentPage(state, values = {}) {
@@ -703,7 +704,7 @@ export function studentPage(state, values = {}) {
     if (state.user.reviewStatus === 'rejected') {
       return layout(state, '修改注册申请', studentContent(state, values), { accountEntry: true });
     }
-    return layout(state, '注册审核', `<section class="panel application-status" aria-labelledby="application-title">
+    return layout(state, '注册审核', h`<section class="panel application-status" aria-labelledby="application-title">
       <div class="application-status-mark" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
       <h1 id="application-title">请等待教师审核</h1>
       <p>申请已提交，等待教师审核。审核通过后即可进入实验室工作台。</p>
@@ -717,7 +718,7 @@ export function studentPage(state, values = {}) {
 
 function studentTour(state) {
   const { needsDismissal } = state.tour;
-  return `<dialog id="student-tour" aria-labelledby="student-tour-title" aria-describedby="student-tour-description"
+  return h`<dialog id="student-tour" aria-labelledby="student-tour-title" aria-describedby="student-tour-description"
       data-autostart="true" data-dismiss-on-close="${needsDismissal}">
       <div data-tour-spotlight aria-hidden="true"></div>
       <div class="student-tour-card">
@@ -733,7 +734,7 @@ function studentTour(state) {
         </div>
       </div>
     </dialog>
-    ${needsDismissal ? `<noscript><section class="panel" aria-label="欢迎使用实验室管理平台">
+    ${needsDismissal ? h`<noscript><section class="panel" aria-label="欢迎使用实验室管理平台">
       <h2>欢迎使用实验室管理平台</h2>
       <p><a href="/student/guide">阅读使用指引</a></p>
       <form method="post" action="/student/welcome/dismiss">${token(state)}
@@ -745,8 +746,8 @@ function studentTour(state) {
 export function newsForm(state, values = {}) {
   const editing = values.id != null;
   const title = editing ? '编辑动态' : '发布公开动态';
-  const action = editing ? `/teacher/news/${encodeURIComponent(values.id)}/edit` : '/teacher/news/new';
-  return layout(state, title, `
+  const action = editing ? h`/teacher/news/${encodeURIComponent(values.id)}/edit` : '/teacher/news/new';
+  return layout(state, title, h`
     <a class="back-link" href="/teacher">返回工作台</a>
     <section class="panel form-panel">
       ${sectionHeading(title, '公开发布后，无需登录即可从展示网站或动态归档阅读。')}
@@ -774,7 +775,7 @@ export function newsForm(state, values = {}) {
           <input name="sourceUrl" type="url" maxlength="500" value="${escapeHtml(values.sourceUrl)}">
         </label>
         <div class="actions">
-          <button class="button button--primary" type="submit">${editing ? '保存修改' : '保存动态'}</button>
+          <button class="button button--primary" type="submit">${t(editing ? '保存修改' : '保存动态')}</button>
           <a class="button button--quiet" href="/teacher">取消</a>
         </div>
       </form>
@@ -782,9 +783,9 @@ export function newsForm(state, values = {}) {
 }
 
 export function messagePage(state, title, message) {
-  return layout(state, title, `
+  return layout(state, title, h`
     <section class="panel form-panel">
-      ${sectionHeading(escapeHtml(title), escapeHtml(message))}
+      ${sectionHeading(escapeHtml(t(title)), escapeHtml(t(message)))}
       <a class="button button--plain" href="/">返回首页</a>
     </section>`);
 }

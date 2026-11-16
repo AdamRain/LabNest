@@ -4,6 +4,8 @@
 
 Demo 启动器只供本机体验，使用独立的 `data/demo.sqlite` 和公开口令。正式站应从空库开始，创建独立账号；不要把演示数据库复制成正式数据库。
 
+需要开发助手协助安装时，可先填写并复制[中文安装提示词](INSTALL_PROMPT.zh-CN.md)或 [English installation prompt](INSTALL_PROMPT.en.md)。提示词是安装任务模板，不能替代实际部署与验收记录。
+
 ## 1. 环境与数据位置
 
 - Node.js **24 或更新版本**，以及 npm。

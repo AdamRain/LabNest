@@ -1,3 +1,4 @@
+import { h } from './i18n.mjs';
 // A small document format, never stored or accepted as HTML. Image references are
 // resolved against this version's authorized attachments before persistence.
 const imageMimes = new Set(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
@@ -69,7 +70,7 @@ export function renderPlanRich(value, { imagePrefix = '/student' } = {}) {
   for (const block of document.blocks) {
     if (block.type === 'image') {
       closeList();
-      if (block.attachmentId) result += `<figure><img src="${prefix}/weekly/images/${block.attachmentId}" data-attachment-id="${block.attachmentId}" alt="工作计划插图" loading="lazy"></figure>`;
+      if (block.attachmentId) result += h`<figure><img src="${prefix}/weekly/images/${block.attachmentId}" data-attachment-id="${block.attachmentId}" alt="工作计划插图" loading="lazy"></figure>`;
       continue;
     }
     const body = block.runs.map(run => {

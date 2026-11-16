@@ -1,3 +1,4 @@
+const translateCalendarPreview = (message, params = {}) => window.LabI18n?.t(message, params) ?? message.replace(/\{(\w+)\}/g, (match, key) => Object.hasOwn(params, key) ? String(params[key]) : match);
 const days = [...document.querySelectorAll('a[data-calendar-preview]')];
 
 if (days.length) {
@@ -79,7 +80,7 @@ if (days.length) {
     originalAttributes = Object.fromEntries(['aria-controls', 'aria-describedby', 'aria-expanded', 'aria-keyshortcuts'].map(name => [name, day.getAttribute(name)]));
     content.replaceChildren(template.content.cloneNode(true));
     const heading = content.querySelector('.calendar-preview-heading, h2, h3');
-    popup.setAttribute('aria-label', heading?.textContent.trim() || '当天事项');
+    popup.setAttribute('aria-label', heading?.textContent.trim() || translateCalendarPreview('当天事项'));
     day.setAttribute('aria-controls', popup.id);
     day.setAttribute('aria-describedby', [originalAttributes['aria-describedby'], popup.id].filter(Boolean).join(' '));
     day.setAttribute('aria-expanded', 'true');

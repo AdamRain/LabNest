@@ -1,3 +1,4 @@
+const translateTheme = (message, params = {}) => window.LabI18n?.t(message, params) ?? message.replace(/\{(\w+)\}/g, (match, key) => Object.hasOwn(params, key) ? String(params[key]) : match);
 (() => {
   'use strict';
   const themeKey = 'lab.theme', accentKey = 'lab.accent';
@@ -18,7 +19,7 @@
     root.style.colorScheme = theme;
     document.querySelectorAll('[data-theme-select]').forEach(select => { select.value = preference; });
     document.querySelectorAll('[data-accent-choice]').forEach(choice => { choice.checked = choice.value === accent; });
-    document.querySelectorAll('[data-appearance-label]').forEach(label => { label.textContent = labels[preference]; });
+    document.querySelectorAll('[data-appearance-label]').forEach(label => { label.textContent = translateTheme(labels[preference]); });
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.content = theme === 'dark' ? '#101b22' : '#f4f8f7';
   }
