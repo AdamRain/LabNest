@@ -178,4 +178,6 @@ deploy/linux/          Linux 服务与 Caddy 配置模板
 
 本项目原创代码、文档及新生成的研栖标识采用 [MIT License](LICENSE)，版权署名为 **R_C**。
 
+May the source be with you.
+
 随仓库分发的 Preline 组件、Fandol 中文字体保留各自许可证，详见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。其他依赖通过 `npm ci` 按锁文件安装。开源版本使用通用品牌与虚构资料，不包含原部署实例的标识和人员数据。
