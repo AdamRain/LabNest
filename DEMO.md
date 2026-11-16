@@ -76,6 +76,25 @@ npm run demo:seed
 
 演示版没有发件邮箱和发送邮件的适配器。忘记密码页可查看配置未启用时的提示；真实邮件找回需要在独立安装中配置 SMTP 和实际 HTTPS 网站地址。
 
+### 推荐会议订阅：CCFDDL
+
+独立安装或正式部署后，可从 [CCFDDL](https://ccfddl.com/) 获取真实会议日历。在教师端打开「提醒与日历 → 会议订阅」，新增订阅名称和下表中的 HTTPS 链接，保存后点击「同步」。可按研究方向选择订阅；需要其他分类或筛选组合时，参考项目的 [iCal 订阅说明](https://github.com/ccfddl/ccf-deadlines/tree/main/extensions/ical)。
+
+| 推荐范围 | 中文 ICS 订阅链接 |
+| --- | --- |
+| 全部会议 | [deadlines_zh.ics](https://ccfddl.com/conference/deadlines/deadlines_zh.ics) |
+| 人工智能（AI） | [deadlines_zh_AI.ics](https://ccfddl.com/conference/deadlines/deadlines_zh_AI.ics) |
+| 数据库、数据挖掘与信息检索（DB） | [deadlines_zh_DB.ics](https://ccfddl.com/conference/deadlines/deadlines_zh_DB.ics) |
+| 计算机图形学与多媒体（CG） | [deadlines_zh_CG.ics](https://ccfddl.com/conference/deadlines/deadlines_zh_CG.ics) |
+| 人机交互（HI） | [deadlines_zh_HI.ics](https://ccfddl.com/conference/deadlines/deadlines_zh_HI.ics) |
+| 交叉、综合与新兴领域（MX） | [deadlines_zh_MX.ics](https://ccfddl.com/conference/deadlines/deadlines_zh_MX.ics) |
+
+复制表中链接的地址即可填写订阅。`npm run demo` 仍保持离线，不会因添加上述链接而访问真实日历；体验真实同步请使用独立安装。会议时间可能调整，投稿前请核对会议官网，并留意截止时间的时区。
+
+### 致谢
+
+感谢 [CCFDDL / ccf-deadlines](https://github.com/ccfddl/ccf-deadlines) 项目的维护者与社区贡献者持续整理会议截止信息并提供日历订阅。研栖推荐使用其公开订阅作为真实会议日程来源；内置 Demo 日程为独立构造的虚构数据，不来自 CCFDDL。
+
 ## 发布包为什么没有数据库
 
 发布物包含完整生成脚本和虚构数据定义，首次运行即可得到相同类型的演示内容。`data/`、数据库、体验期间的附件、会话与邮件设置不会被提交到 GitHub 或打进源码压缩包。
